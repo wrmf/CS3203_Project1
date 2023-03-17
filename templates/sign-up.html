@@ -1,0 +1,36 @@
+<html>
+
+	<head>
+		<title>Sign Up Placeholder Page</title>
+	</head>
+	<body>
+		<div class="container">
+			<h1>Sign Up</h1>
+				<p>Enter Username and Password:</p>
+			<form method="post" action="">
+
+				<!-- Field to enter username -->
+				<input type="text" placeholder="Username" name="username" value="{{
+			 	request.form.username }}">
+				<br>
+
+				<!-- Field to enter password -->
+				<input type="password" placeholder="Password" name="password" value="{{
+			 	request.form.username }}">
+				<br>
+
+				<!-- Field to enter password confirmation -->
+				<input type="password" placeholder="Confirm Password" name="confirm" value="{{
+			 	request.form.confirm }}">
+
+				<!-- Submit button -->
+				<input class="btn btn-default" type="submit" value="Sign Up">
+			</form>
+			<!-- Output error (error defined in app.py) -->
+			{% if error %}
+				<p class="error"><strong>Error:</strong> {{ error}}
+			{% endif %}
+		</div>
+	</body>
+
+</html>
