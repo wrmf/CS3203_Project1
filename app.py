@@ -53,14 +53,14 @@ def login():
 
 		if username not in users and (username != 'admin' or password != 'admin'):	# Check if the username doesn't exist or isn't 'admin'
 			error = 'Invalid credentials'	# If not, print error and prompt for input
-		elif username != 'admin' or password != 'admin':
-			idx = users.index(username)	# Get the index of the username for the three lists
+		elif username != 'admin':
+			idx = users.index(username)	# Get the index of the user in the three lists
 			if password != passwords[idx]:	# Make sure it is the correct password for this user
 				error = 'Incorrect password'
 			else:
-				return redirect(url_for('home'))	# If successful, take to home page
+				return redirect(url_for('home', curruser = username))	# Go to home page, pass user index
 		else:
-			return redirect(url_for('home'))
+			return redirect(url_for('home', curruser = username))	# Go to home, pass -1 index (admin)
 
 	return render_template('login.html', error=error)
 
@@ -78,20 +78,22 @@ def sign_up():
 			error = 'Username taken'
 		else:
 			if (password == confirm):	# Check that the entered password and the re-entered passwords match
+				# Add the username, password, and highscore to their respective lists
 				users.append(username)
 				passwords.append(password)
 				highscores.append(0)
 				append_to_file()	# Add the new user with their password and 0 highscore to the end of 'users.txt'
-				return redirect(url_for('home'))	# If successful, go to the home page
+				
+				return redirect(url_for('home', curruser = username))	# If successful, go to the home page and pass user index
 			else:	# Throw error if passwords don't match
 				error = 'Passwords do not match'
 
 	return render_template('sign-up.html', error=error)
 
 # home page
-@app.route("/home", methods=[ 'GET', 'POST' ])
-def home():
-	return render_template('home.html')
+@app.route("/home/<curruser>", methods=[ 'GET', 'POST' ])
+def home(curruser):
+	return render_template('home.html', currentuser = curruser)
 
 if __name__ == "__main__":
 	app.run('0.0.0.0', 5000)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
