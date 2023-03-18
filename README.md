@@ -15,5 +15,5 @@
 	* Within `app.py`, the last line is `app.run('0.0.0.0', 5000)`. **Do not** change the `0.0.0.0`, but the `5000` can be changed to `5001, 5002, 5003, etc.`, and I think this will
 	  allow multiple instances of the web app to run at once (for multiple people developing at once).
 	* Plan on using `5000` for the main branch
-4. To view the web app, type in the URL `http://127.0.0.1:{port}`. Here, the port number is the `5000...`
-	* This will only be viewable when the server and the app are actively running.
+4. To view the web app, type in the URL `http://127.0.0.1:{port}` (if running on your local machine). Here, the port number is the `5000...`
+	* For the server (if it is running), the URL will be `http://34.172.253.216:{port}`
