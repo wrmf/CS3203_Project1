@@ -94,6 +94,10 @@ def sign_up():
 # home page
 @app.route("/home/<curruser>", methods=[ 'GET', 'POST' ])
 def home(curruser):
+	if request.method == 'POST':
+		if request.form.get('ind') == 'index':  # This is a login button to take users to the login page
+			return redirect(url_for('index'))
+
 	return render_template('home.html', currentuser = curruser)
 
 if __name__ == "__main__":
