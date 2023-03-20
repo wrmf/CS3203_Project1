@@ -2,7 +2,7 @@ import pandas as pd
 import random
 
 def get_easyQuestion(listOfQuestions):
-    questionList = pd.read_csv('static/easyQuestions.csv')
+    questionList = pd.read_csv('../static/easyQuestions.csv')
 
     num = random.randint(0, len(questionList) - 1)  # Correct answer
 
