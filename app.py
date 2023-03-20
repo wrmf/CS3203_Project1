@@ -40,8 +40,8 @@ def index():
 			return redirect(url_for('login'))
 		elif request.form.get('sign') == 'Sign Up':	# This is a sign up button to take users to the sign up page
 			return redirect(url_for('sign_up'))
-	elif request.method == 'GET':
-		return render_template('index.html')
+
+	return render_template('index.html')
 
 # login page
 @app.route("/login", methods=[ 'GET', 'POST' ])
