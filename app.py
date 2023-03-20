@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
+import sys
 
 USERFILE_PATH = 'static/users.txt'	# 'users.txt' path
 users = []; passwords = []; highscores = []	# Declare lists for users, passwords, and highscores
@@ -96,4 +97,7 @@ def home(curruser):
 	return render_template('home.html', currentuser = curruser)
 
 if __name__ == "__main__":
-	app.run('0.0.0.0', 5000)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
+	port = 5000
+	if(len(sys.argv) >= 2):
+		port = sys.argv[1]
+	app.run('0.0.0.0', port)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
