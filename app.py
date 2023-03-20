@@ -42,6 +42,8 @@ def index():
 			return redirect(url_for('sign_up'))
 	elif request.method == 'GET':
 		return render_template('index.html')
+	
+	return render_template('index.html')
 
 # login page
 @app.route("/login", methods=[ 'GET', 'POST' ])
@@ -95,7 +97,7 @@ def sign_up():
 @app.route("/home/<curruser>", methods=[ 'GET', 'POST' ])
 def home(curruser):
 	if request.method == 'POST':
-		if request.form.get('ind') == 'index':  # This is a login button to take users to the login page
+		if request.form.get('ind') == 'Logout':  # This is a login button to take users to the login page
 			return redirect(url_for('index'))
 
 	return render_template('home.html', currentuser = curruser)
