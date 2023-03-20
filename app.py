@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
 import os
 import sys
+from questions import *
 
 USERFILE_PATH = 'static/users.txt'	# 'users.txt' path
 users = []; passwords = []; highscores = []	# Declare lists for users, passwords, and highscores
@@ -40,7 +41,6 @@ def index():
 			return redirect(url_for('login'))
 		elif request.form.get('sign') == 'Sign Up':	# This is a sign up button to take users to the sign up page
 			return redirect(url_for('sign_up'))
-
 	return render_template('index.html')
 
 # login page
@@ -95,10 +95,19 @@ def sign_up():
 @app.route("/home/<curruser>", methods=[ 'GET', 'POST' ])
 def home(curruser):
 	if request.method == 'POST':
-		if request.form.get('ind') == 'index':  # This is a login button to take users to the login page
+		if request.form.get('ind') == 'Logout':  # This is a login button to take users to the login page
 			return redirect(url_for('index'))
 
 	return render_template('home.html', currentuser = curruser)
+
+@app.route("/easyGame")#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
+def play_easyGame():
+	listOfQuestions = []
+	ret = get_easyQuestion(listOfQuestions)
+	listOfQuestions.append(ret[5])
+	print(ret)
+
+	return render_template('easyquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3], answer4=ret[4])
 
 if __name__ == "__main__":
 	port = 5000
