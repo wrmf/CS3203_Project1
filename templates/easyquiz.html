@@ -1,16 +1,21 @@
 <html>
-
 	<head>
 		<title>Easy Quiz Page</title>
 	</head>
 	<body>
-        <div class="loggedUser">
-			<span>Question: {{ question }}</span><br/>
-            <span>Answer A: {{ answer1 }}</span><br/>
-            <span>Answer B: {{ answer2 }}</span><br/>
-            <span>Answer C: {{ answer3 }}</span><br/>
-            <span>Answer D: {{ answer4 }}</span><br/>
-		</div>
+         <span>Question: {{ question }}</span><br><br>
+
+    	<form action="/easyGame/{{ curruser }}" method="POST">
+		<button name="answer" value="A">Answer A: {{ answer1 }}</button>
+		<button name="answer" value="B">Answer B: {{ answer2 }}</button>
+		<button name="answer" value="C">Answer C: {{ answer3 }}</button>
+		<button name="answer" value="D">Answer D: {{ answer4 }}</button>
+	    </form>
+
+        <span>Score: {{ score }}</span><br/>
+        <span>Question {{ currQ }}/{{ maxQ }}</span><br/>
+
+
 	</body>
 
 </html>

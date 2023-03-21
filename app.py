@@ -3,9 +3,20 @@ import os
 import sys
 from modules.questions import *
 from modules.fileIO import *
+TEMPLATES_AUTO_RELOAD = True
+
+MAXQUESTIONS = 5
+MINQUESTIONS = 2
+
+score = 0
+correctAnswer = 0
+numQuestions = MINQUESTIONS
+currentQuestion = 1
 
 # Flask Web App
 app = Flask(__name__)
+
+easyQuestions = pd.read_csv('static/easyQuestions.csv')
 
 # index page
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
@@ -73,17 +84,92 @@ def home(curruser):
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # This is a login button to take users to the login page
 			return redirect(url_for('index'))
+		if request.form.get('play') == 'play':  # This is a login button to take users to the login page
+			return redirect(url_for('play'), curruser=curruser)
 
 	return render_template('home.html', currentuser = curruser)
 
-@app.route("/easyGame")#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
-def play_easyGame():
-	listOfQuestions = []
-	ret = get_easyQuestion(listOfQuestions)
-	listOfQuestions.append(ret[5])
-	print(ret)
+# home page
+@app.route("/play/<curruser>", methods=[ 'GET', 'POST' ])
+def play(curruser):
+	global numQuestions
 
-	return render_template('easyquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3], answer4=ret[4])
+	if request.method == 'POST':
+		print("E")
+		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
+			numQ = int(request.form['numQ'])	# Get username
+			if numQ is not None:
+				if numQ < MINQUESTIONS:
+					numQuestions = MINQUESTIONS
+				elif numQ > MAXQUESTIONS:
+					numQuestions = MAXQUESTIONS
+				else:
+					numQuestions = numQ
+			return redirect(url_for('play_easyGame'), curruser=curruser)
+
+	return render_template('play.html', currentuser = curruser)
+
+@app.route("/easyGame/<curruser>", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
+def play_easyGame(curruser):
+	global score
+	global correctAnswer
+	global numQuestions
+	global currentQuestion
+	listOfQuestions = []
+	ret = get_easyQuestion(listOfQuestions, easyQuestions)
+	listOfQuestions.append(ret[5])
+
+	if currentQuestion < numQuestions:
+		if request.method == 'GET':
+			correctAnswer = ret[6]
+		if request.method == 'POST':
+			answer = request.form['answer']
+			if answer is not None:
+				if answer == 'A':
+					if correctAnswer == 0:
+						score += 10
+					else:
+						score -= 5
+				elif answer == 'B':
+					if correctAnswer == 1:
+						score += 10
+					else:
+						score -= 5
+				elif answer == 'C':
+					if correctAnswer == 2:
+						score += 10
+					else:
+						score -= 5
+				elif answer == 'D':
+					if correctAnswer == 3:
+						score += 10
+					else:
+						score -= 5
+			correctAnswer = ret[6]
+			currentQuestion += 1
+	else:
+		return redirect(url_for('gameComplete'), score=score, curruser=curruser)
+
+
+	return render_template('easyquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
+						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions, curruser=curruser)
+
+@app.route("/complete/<curruser>", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
+def gameComplete(score, curruser):
+	global numQuestions
+	message = '' #Message to display on page
+
+	hs = highscores[users.index(curruser)] #Get high score
+	if score > hs:
+		message = f'You beat your previous high score of {hs} with a new high score of {score}!'
+		highscores[users.index(curruser)] = score
+		resave_file()
+	elif score == hs:
+		message = f'You tied your high score of {hs} points!'
+	elif score < hs:
+		message = f'You did not beat your high score of {hs} points :('
+
+	return render_template('complate.html', message)
 
 if __name__ == "__main__":
 	port = 5000

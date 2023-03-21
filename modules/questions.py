@@ -1,8 +1,7 @@
 import pandas as pd
 import random
 
-def get_easyQuestion(listOfQuestions):
-    questionList = pd.read_csv('../static/easyQuestions.csv')
+def get_easyQuestion(listOfQuestions, questionList):
 
     num = random.randint(0, len(questionList) - 1)  # Correct answer
 
@@ -34,4 +33,4 @@ def get_easyQuestion(listOfQuestions):
             array.append(questionList['Correct'][listOfAnswers[counterWrongAnswer]])
             counterWrongAnswer += 1
             counter += 1
-    return [questionList['Question'][num], array[0], array[1], array[2], array[3], num]
+    return [questionList['Question'][num], array[0], array[1], array[2], array[3], num, placementOfRightAnswer]
