@@ -22,3 +22,13 @@ def append_to_file():
 	afile = open(USERFILE_PATH, 'a')	# Open 'users.txt' to be appended to
 	afile.write(newline)	# Append the newline to the end of the file
 	afile.close()	# Close file
+
+# Add new score to file
+def resave_file():
+	afile = open(USERFILE_PATH, 'w')  # Open 'users.txt' to be appended to
+
+	for idx in range(0, len(users)):
+		newline = users[idx] + ',' + passwords[idx] + ',' + str(highscores[idx]) + '\n'	# String to be appended to 'users.txt'
+		afile.write(newline)  # Append the newline to the end of the file
+
+	afile.close()	# Close file

@@ -1,3 +1,3 @@
 bons0002,password1,0
 testuser,testpass,0
-wrmf,testpassword,0
+wrmf,test,20
