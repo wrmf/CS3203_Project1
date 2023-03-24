@@ -1,0 +1,9 @@
+# Specific directories
+projectenv/
+ProjectInfo/
+__pycache__/
+modules/__pycache__/
+.idea/
+
+# Specific files
+.DS_Store
