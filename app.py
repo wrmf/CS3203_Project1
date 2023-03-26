@@ -69,7 +69,7 @@ def sign_up():
 				passwords.append(password)
 				highscores.append(0)
 				append_to_file()	# Add the new user with their password and 0 highscore to the end of 'users.txt'
-				session['curruser'] = curruser
+				session['curruser'] = username
 				return redirect(url_for('home'))	# If successful, go to the home page and pass user index
 			else:	# Throw error if passwords don't match
 				error = 'Passwords do not match'
