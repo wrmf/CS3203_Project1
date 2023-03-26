@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-from flask_session import Session
 import sys
 from modules.questions import *
 from fileIO import *
@@ -19,19 +18,12 @@ easyQuestions = pd.read_csv('static/easyQuestions.csv')
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def index():
 	read_from_file()	# Initalize lists
-
-	if request.method == 'POST':
-		if request.form.get('log') == 'Login':	# This is a login button to take users to the login page
-			return redirect(url_for('login'))
-		elif request.form.get('sign') == 'Sign Up':	# This is a sign up button to take users to the sign up page
-			return redirect(url_for('sign_up'))
-	return render_template('index.html')
+	return render_template('index.html', error=None)
 
 # login page
 @app.route("/login/", methods=[ 'GET', 'POST' ])
 def login():
 	error = None
-	print(passwords)
 
 	if request.method == 'POST':
 		username = request.form['username']	# Get string entered into username field
@@ -82,12 +74,13 @@ def sign_up():
 # home page
 @app.route("/home/", methods=[ 'GET', 'POST' ])
 def home():
+	error = None
 	curruser = session.get('curruser', None)
 
-	# Will redirect to index if no user is logged in (this way users can't bypass login)
-	# User logins persist because of cookies, though
+	# If there is no user logged in, render index and throw error
 	if not curruser:
-		return redirect(url_for('index'))
+		error = 'Currently not logged in'
+		return render_template('index.html', error=error)
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
@@ -196,8 +189,6 @@ if __name__ == "__main__":
 	port = 5000
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
-	app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
-	app.config["SESSION_PERMANENT"] = False  # Log users out after session
-	app.config["SESSION_TYPE"] = "filesystem"
-	Session(app)  # Start session
+	#app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
+	app.config['SECRET_KEY'] = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
 	app.run('0.0.0.0', port)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
