@@ -5,17 +5,22 @@
         <link rel="icon" type="image/png" href="img/favicon.png">
  	</head>
 	<body>
+		<div class="container">
 		<h1>Software Engineering Project</h1>
 			<p>Please select login option:</p>
-
-			<form method="post" action="/">
-
-				<!-- Button to navigate to 'Login' page -->
-				<input type="submit" value="Login" name="log"/>
+			<nav>
+				<!-- Links to login and sign up pages -->
+				<a href="{{ url_for('login') }}">Login</a>
+				<a href="{{ url_for('sign_up') }}">Sign Up</a>
 				<br>
 
-				<!-- Button to navigate to 'Sign Up' page -->
-				<input type="submit" value="Sign Up" name="sign"/>
-			</form>
+				<!-- If there is already a session token, go straight to home -->
+				<p>Already logged in? <a href="{{ url_for('home') }}">Home</a></p>
+			</nav>
+			<!-- Throw error if not already session token present, and try to hit home button -->
+			{% if error %}
+				<p class="error"><strong>Error:</strong> {{ error }}
+			{% endif %}
+		</div>
 	</body>
 </html>
