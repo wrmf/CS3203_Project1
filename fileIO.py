@@ -1,34 +1,28 @@
-USERFILE_PATH = 'static/users.txt'	# 'users.txt' path
+import pandas as pd
+
+USERFILE_PATH = 'static/users.csv'	# 'users.txt' path
 users = []; passwords = []; highscores = []	# Declare lists for users, passwords, and highscores
+user_df = pd.read_csv(USERFILE_PATH)
 
-# Read usernames, passwords, and highscores from 'users.txt' file, then add them to the lists
+# Read usernames, passwords, and highscores from 'users.csv' file, then add them to the lists
 def read_from_file():
-	rfile = open(USERFILE_PATH, 'r')	# Open users file to read in data
-	users.clear(); passwords.clear(); highscores.clear()	# Clear the lists (just in case)
+	user_df.reset_index()
+	users.clear(); passwords.clear(); highscores.clear()
+	for index, row in user_df.iterrows():
+		users.append(row['Username'])
+		passwords.append(row['Password'])
+		highscores.append(row['High Score'])
 
-	for line in rfile:
-		currline = line.split(',')	# Split line of users.txt by commas
-		users.append(currline[0])	# Add usernames to users list
-		passwords.append(currline[1])	# Add passwords to password list
-		highscores.append(int(currline[2]))	# Add (integer) highscores to highscores list
-
-	rfile.close()	# Close the read file
-
-# Append a line to the end of 'users.txt'
+# Append a line to the end of 'users.csv'
 def append_to_file():
 	idx = len(users) - 1
-	newline = users[idx] + ',' + passwords[idx] + ',' + str(highscores[idx]) + '\n'	# String to be appended to 'users.txt'
+	user_df.loc[len(user_df.index)] = [users[idx], passwords[idx], highscores[idx]]  	# Add row to end of df
+	user_df.to_csv(USERFILE_PATH, index = False)	# Write dataframe to .csv file
 
-	afile = open(USERFILE_PATH, 'a')	# Open 'users.txt' to be appended to
-	afile.write(newline)	# Append the newline to the end of the file
-	afile.close()	# Close file
-
-# Add new score to file
+# Rewrite the whole csv with any new values
 def resave_file():
-	afile = open(USERFILE_PATH, 'w')  # Open 'users.txt' to be appended to
-
-	for idx in range(0, len(users)):
-		newline = users[idx] + ',' + passwords[idx] + ',' + str(highscores[idx]) + '\n'	# String to be appended to 'users.txt'
-		afile.write(newline)  # Append the newline to the end of the file
-
-	afile.close()	# Close file
+	# Make new dataframe with new values
+	temp_df = pd.DataFrame(list(zip(users, passwords, highscores)), columns=['Username', 'Password', 'High Score'])
+	user_df = temp_df	# Replace old dataframe with new values
+	read_from_file()	# Load new values into lists
+	user_df.to_csv(USERFILE_PATH, index = False)	# Save as .csv
