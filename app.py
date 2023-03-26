@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import os
+from flask_session import Session
 import sys
 from modules.questions import *
 from fileIO import *
+import pandas as pd
+
 TEMPLATES_AUTO_RELOAD = True
 
 MAXQUESTIONS = 5
@@ -26,7 +28,7 @@ def index():
 	return render_template('index.html')
 
 # login page
-@app.route("/login", methods=[ 'GET', 'POST' ])
+@app.route("/login/", methods=[ 'GET', 'POST' ])
 def login():
 	error = None
 	print(passwords)
@@ -43,6 +45,7 @@ def login():
 				error = 'Incorrect password'
 			else:
 				session['curruser'] = username
+				session.permanent = False
 				return redirect(url_for('home'))	# Go to home page, pass user index
 		else:
 			session['curruser'] = username
@@ -51,7 +54,7 @@ def login():
 	return render_template('login.html', error=error)
 
 # sign up page
-@app.route("/sign_up", methods=[ 'GET', 'POST' ])
+@app.route("/sign_up/", methods=[ 'GET', 'POST' ])
 def sign_up():
 	error = None
 
@@ -80,10 +83,17 @@ def sign_up():
 @app.route("/home/", methods=[ 'GET', 'POST' ])
 def home():
 	curruser = session.get('curruser', None)
+
+	# Will redirect to index if no user is logged in (this way users can't bypass login)
+	# User logins persist because of cookies, though
+	if not curruser:
+		return redirect(url_for('index'))
+
 	if request.method == 'POST':
-		if request.form.get('ind') == 'Logout':  # Logout button (send to home)
+		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
+			session.pop('curruser')	# Logout user
 			return redirect(url_for('index')) #redirect to main page
-		if request.form.get('play') == 'play':  # Chceck if 'play' was hit
+		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
 
 	return render_template('home.html', currentuser = curruser)
@@ -187,4 +197,7 @@ if __name__ == "__main__":
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
 	app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
+	app.config["SESSION_PERMANENT"] = False  # Log users out after session
+	app.config["SESSION_TYPE"] = "filesystem"
+	Session(app)  # Start session
 	app.run('0.0.0.0', port)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
