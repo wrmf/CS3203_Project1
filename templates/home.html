@@ -19,10 +19,10 @@
 			<br>
 		</div>
 
-            <nav>
+            <form type="submit" action="/">
 				<!-- Button to navigate to 'index' page -->
-				<a style="float: right" href="{{ url_for('index') }}">Exit</a>
-			</nav>
+				<input type="submit" style="float:right" value="Logout" name="ind"/>
+			</form>
             <form method="post" action="/play">
 				<!-- Button to navigate to 'index' page -->
 				<input type="submit" style="float: left" value="Play" name="play"/>
