@@ -26,7 +26,7 @@ def index():
 			return redirect(url_for('login'))
 		# go to sign up page
 		elif request.form.get('sign') == 'Sign Up':
-			return redirect(url_for('sign-up'))
+			return redirect(url_for('sign_up'))
 		# Go straight to home
 		elif request.form.get('skip') == 'Home':
 			# Throw error if not logged in
