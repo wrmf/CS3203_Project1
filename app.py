@@ -17,7 +17,25 @@ easyQuestions = pd.read_csv('static/easyQuestions.csv')
 # index page
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def index():
-	read_from_file()	# Initalize lists
+	read_from_file()
+	curruser = session.get('curruser', None)
+
+	if request.method == 'POST':
+		# Go to login page
+		if request.form.get('log') == 'Login':
+			return redirect(url_for('login'))
+		# go to sign up page
+		elif request.form.get('sign') == 'Sign Up':
+			return redirect(url_for('sign-up'))
+		# Go straight to home
+		elif request.form.get('skip') == 'Home':
+			# Throw error if not logged in
+			if not curruser:
+				error = 'Currently not logged in.'
+				return render_template('index.html', error=error)
+			# Go to home if logged in
+			else:
+				return redirect(url_for('home'))
 	return render_template('index.html', error=None)
 
 # login page
@@ -74,13 +92,11 @@ def sign_up():
 # home page
 @app.route("/home/", methods=[ 'GET', 'POST' ])
 def home():
-	error = None
 	curruser = session.get('curruser', None)
 
-	# If there is no user logged in, render index and throw error
+	# If user not logged in, sent back to index
 	if not curruser:
-		error = 'Currently not logged in'
-		return render_template('index.html', error=error)
+		return redirect(url_for('index'))
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)

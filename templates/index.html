@@ -7,19 +7,22 @@
 	<body>
 		<div class="container">
 		<h1>Software Engineering Project</h1>
-			<p>Please select login option:</p>
-			<nav>
-				<!-- Links to login and sign up pages -->
-				<a href="{{ url_for('login') }}">Login</a>
-				<a href="{{ url_for('sign_up') }}">Sign Up</a>
+			<form method="post" action="/">
+				<p>Please select a login option:</p>
+				<!-- Login Button -->
+				<input type="submit" value="Login" name="log"/>
 				<br>
-
-				<!-- If there is already a session token, go straight to home -->
-				<p>Already logged in? <a href="{{ url_for('home') }}">Home</a></p>
-			</nav>
+				<!-- Sign Up button -->
+				<input type="submit" value="Sign Up" name="sign"/>
+			</form>
+			<form method="post" action="/">
+				<p>Already logged in?
+					<!-- Home button -->
+				<input type="submit" value="Home" name="skip"/>
+			</form>
 			<!-- Throw error if not already session token present, and try to hit home button -->
 			{% if error %}
-				<p class="error"><strong>Error:</strong> {{ error }}
+				<p style="color:darkred" class="error">Error: {{ error }}
 			{% endif %}
 		</div>
 	</body>
