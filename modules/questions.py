@@ -1,4 +1,3 @@
-import pandas as pd
 import random
 
 def get_easyQuestion(listOfQuestions, questionList):
