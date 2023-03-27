@@ -100,7 +100,8 @@ def home():
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
-			session.pop('curruser')	# Logout user
+			session['curruser'] = None
+			#session.pop('curruser')	# Logout user
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
@@ -118,17 +119,19 @@ def play():
 
 	if request.method == 'POST':
 		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
-			numQ = int(request.form['numQ'])	# Get username
-			if numQ < MINQUESTIONS: #Check if number input was less than minimum
-				numQuestions = MINQUESTIONS
-			elif numQ > MAXQUESTIONS: #Check if number input was more than maximum
-				numQuestions = MAXQUESTIONS
-			else:
-				numQuestions = numQ #Set number of questions to ask
-			session['numQuestions'] = numQuestions #Save to session
-			session['currentQuestion'] = 1 #reset current question counter
-			session['score'] = 0 #Reset score
-			return redirect(url_for('play_easyGame')) #Redirect to /easyGame
+			numQ = request.form['numQ']	# Get username
+			if numQ.isdigit():
+				numQ = int(numQ)
+				if numQ < MINQUESTIONS: #Check if number input was less than minimum
+					numQuestions = MINQUESTIONS
+				elif numQ > MAXQUESTIONS: #Check if number input was more than maximum
+					numQuestions = MAXQUESTIONS
+				else:
+					numQuestions = numQ #Set number of questions to ask
+				session['numQuestions'] = numQuestions #Save to session
+				session['currentQuestion'] = 1 #reset current question counter
+				session['score'] = 0 #Reset score
+				return redirect(url_for('play_easyGame')) #Redirect to /easyGame
 
 	return render_template('play.html')
 
@@ -218,4 +221,4 @@ if __name__ == "__main__":
 		port = sys.argv[1]
 	#app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
 	app.config['SECRET_KEY'] = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
-	app.run('0.0.0.0', port)	# 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
+	app.run('0.0.0.0', port) # 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
