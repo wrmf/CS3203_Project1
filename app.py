@@ -20,7 +20,10 @@ def index():
 	read_from_file()
 	curruser = session.get('curruser', None)
 
-	if request.method == 'POST':
+	if curruser:
+		return redirect(url_for('home'))
+
+	elif request.method == 'POST':
 		# Go to login page
 		if request.form.get('log') == 'Login':
 			return redirect(url_for('login'))
@@ -33,9 +36,6 @@ def index():
 			if not curruser:
 				error = 'Currently not logged in.'
 				return render_template('index.html', error=error)
-			# Go to home if logged in
-			else:
-				return redirect(url_for('home'))
 	return render_template('index.html', error=None)
 
 # login page
@@ -100,8 +100,7 @@ def home():
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
-			session['curruser'] = None
-			#session.pop('curruser')	# Logout user
+			#todo logout
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
