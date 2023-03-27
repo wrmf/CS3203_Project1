@@ -113,6 +113,9 @@ def play():
 	global numQuestions #get number of questions
 	curruser = session.get('curruser', None)
 
+	if not curruser:
+		return redirect(url_for('index'))
+
 	if request.method == 'POST':
 		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
 			numQ = int(request.form['numQ'])	# Get username
@@ -132,6 +135,10 @@ def play():
 @app.route("/easyGame/", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def play_easyGame():
 	curruser = session.get('curruser', None) #Get username
+
+	if not curruser:
+		return redirect(url_for('index'))
+
 	numQuestions = session.get('numQuestions', None) #Get number of questions
 	currentQuestion = session.get('currentQuestion', None) #Get current question counter
 	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
@@ -179,6 +186,10 @@ def play_easyGame():
 @app.route("/complete/", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def gameComplete():
 	curruser = session.get('curruser', None) #Get current user
+
+	if not curruser:
+		return redirect(url_for('index'))
+
 	score = session.get('score', None) #Get current score
 	session['currentQuestion'] = 1 #Reset current question counter
 	message = '' #Message to display on page
