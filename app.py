@@ -115,13 +115,26 @@ def play():
 
 	if request.method == 'POST':
 		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
-			numQ = int(request.form['numQ'])	# Get username
-			if numQ < MINQUESTIONS: #Check if number input was less than minimum
-				numQuestions = MINQUESTIONS
-			elif numQ > MAXQUESTIONS: #Check if number input was more than maximum
-				numQuestions = MAXQUESTIONS
+			numQ = request.form['numQ']	# Get username
+
+			if not numQ.isdigit():	# checks if numQ is comprised of digits.
+				errorStatement = "Please enter valid number..."	#if it isnt error statment is ran to try again
+				return render_template("play.html", errorStatement = errorStatement,
+									 				min=MINQUESTIONS,
+									   				max=MAXQUESTIONS)
 			else:
-				numQuestions = numQ #Set number of questions to ask
+				numQ = int(numQ) #if it is digits it is converted to an int
+
+
+			if numQ < MINQUESTIONS or numQ > MAXQUESTIONS:	# checks if numQ is within bounds
+				errorStatement = "Please enter valid number..." # statement to be passed to html
+				return render_template("play.html", errorStatement=errorStatement,	#re renders play.html with error message
+									   				min = MINQUESTIONS,
+									   				max = MAXQUESTIONS)
+
+			numQuestions = numQ
+
+
 			session['numQuestions'] = numQuestions #Save to session
 			session['currentQuestion'] = 1 #reset current question counter
 			session['score'] = 0 #Reset score
@@ -202,7 +215,7 @@ def gameComplete():
 	return render_template('complete.html', message=message, curruser=curruser) #Render window
 
 if __name__ == "__main__":
-	port = 5000
+	port = 5001
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
 	#app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'

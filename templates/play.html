@@ -5,6 +5,11 @@
 	</head>
 	<body>
          <span>Please select the type of quiz and the number of questions</span><br><br>
+
+		 {% if errorStatement %}
+  				{{ errorStatement }} between {{ min }} and {{ max }}
+		 {% endif %}
+
          <span>#TODO, add selection for type of quiz</span><br>
             <form method="post" action="">
                 <input type="text" placeholder="Enter # of questions" name="numQ" required>
