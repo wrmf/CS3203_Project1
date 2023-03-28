@@ -115,24 +115,26 @@ def play():
 
 	if request.method == 'POST':
 		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
-			numQ = request.form['numQ']	# Get username
+			numQ = request.form['numQ']  # Get username
 
-			if not numQ.isdigit():	# checks if numQ is comprised of digits.
-				errorStatement = "Please enter valid number..."	#if it isnt error statment is ran to try again
-				return render_template("play.html", errorStatement = errorStatement,
-									 				min=MINQUESTIONS,
-									   				max=MAXQUESTIONS)
+			if numQ.isdigit():  # checks if numQ is comprised of digits.
+
+				numQ = int(numQ)  # if it is digits it is converted to an int
+				if MINQUESTIONS < numQ < MAXQUESTIONS:  # checks if numQ is within bounds
+					numQuestions = numQ
+				else:
+					errorStatement = "Please enter valid number..."  # statement to be passed to html
+					return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+					# ^renders play.html with error message
 			else:
-				numQ = int(numQ) #if it is digits it is converted to an int
+				errorStatement = "Please enter valid number..."  # if it isnt error statment is ran to try again
+				return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
 
 
-			if numQ < MINQUESTIONS or numQ > MAXQUESTIONS:	# checks if numQ is within bounds
-				errorStatement = "Please enter valid number..." # statement to be passed to html
-				return render_template("play.html", errorStatement=errorStatement,	#re renders play.html with error message
-									   				min = MINQUESTIONS,
-									   				max = MAXQUESTIONS)
 
-			numQuestions = numQ
+
+
+
 
 
 			session['numQuestions'] = numQuestions #Save to session
@@ -215,7 +217,7 @@ def gameComplete():
 	return render_template('complete.html', message=message, curruser=curruser) #Render window
 
 if __name__ == "__main__":
-	port = 5001
+	port = 5000
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
 	#app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
