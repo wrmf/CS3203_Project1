@@ -1,7 +1,7 @@
 import random
 import pandas as pd
 
-def get_easyQuestion(listOfQuestions, questionList):
+def get_questions(listOfQuestions, questionList):
 
     num = random.randint(0, len(questionList) - 1)  # Correct answer
 
