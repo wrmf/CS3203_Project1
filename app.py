@@ -13,6 +13,8 @@ MINQUESTIONS = 2
 app = Flask(__name__)
 
 easyQuestions = pd.read_csv('static/easyQuestions.csv')
+mediumQuestions = pd.read_csv('static/easyQuestions.csv')
+hardQuestions = pd.read_csv('static/easyQuestions.csv')
 
 # index page
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
@@ -100,7 +102,8 @@ def home():
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
-			#todo logout
+			session['curruser'] = 'NEVERUSETHISUSERNAMEFORANYREALPERSON'
+			##todo logout
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
@@ -117,7 +120,7 @@ def play():
 		return redirect(url_for('index'))
 
 	if request.method == 'POST':
-		if request.form.get('go') == 'GO!':  # This is a login button to take users to the login page
+		if request.form.get('go'):
 			numQ = request.form['numQ']	# Get username
 			if numQ.isdigit():
 				numQ = int(numQ)
@@ -130,7 +133,12 @@ def play():
 				session['numQuestions'] = numQuestions #Save to session
 				session['currentQuestion'] = 1 #reset current question counter
 				session['score'] = 0 #Reset score
-				return redirect(url_for('play_easyGame')) #Redirect to /easyGame
+				if request.form.get('go') == 'GO (easy difficulty)':  # This is a login button to take users to the login page
+					return redirect(url_for('play_easyGame')) #Redirect to /easyGame
+				elif request.form.get('go') == 'GO (medium difficulty)':  # This is a login button to take users to the login page
+					return redirect(url_for('play_mediumGame')) #Redirect to /easyGame
+				elif request.form.get('go') == 'GO (hard difficulty)':  # This is a login button to take users to the login page
+					return redirect(url_for('play_hardGame')) #Redirect to /easyGame
 
 	return render_template('play.html')
 
@@ -144,7 +152,7 @@ def play_easyGame():
 	numQuestions = session.get('numQuestions', None) #Get number of questions
 	currentQuestion = session.get('currentQuestion', None) #Get current question counter
 	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
-	ret = get_easyQuestion(listOfQuestions, easyQuestions)
+	ret = get_questions(listOfQuestions, easyQuestions)
 	listOfQuestions.append(ret[5]) #Add used questions
 	score = session.get('score', None) #Get score
 
@@ -183,6 +191,108 @@ def play_easyGame():
 
 
 	return render_template('easyquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
+						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions)
+
+@app.route("/mediumGame/", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
+def play_mediumGame():
+	curruser = session.get('curruser', None) #Get username
+
+	if not curruser:
+		return redirect(url_for('index'))
+
+	numQuestions = session.get('numQuestions', None) #Get number of questions
+	currentQuestion = session.get('currentQuestion', None) #Get current question counter
+	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
+	ret = get_questions(listOfQuestions, mediumQuestions)
+	listOfQuestions.append(ret[5]) #Add used questions
+	score = session.get('score', None) #Get score
+
+	if currentQuestion < numQuestions:
+		if request.method == 'GET':
+			session['correctAnswer'] = ret[6] #Set correct answer
+		if request.method == 'POST':
+			correctAnswer = session.get('correctAnswer', None) #Get correct answer
+			answer = request.form['answer']  #Get answer from button press
+
+			array = [['A', 'B', 'C', 'D'],[0, 1, 2, 3]] #Array of options and numbers
+
+			if answer is not None and answer in array[0]:
+				if correctAnswer == array[1][array[0].index(answer)]:
+					score += 10 #Increment on correct
+				else:
+					score -=5 #Decrement on wrong
+
+			session['correctAnswer'] = ret[6] #Save correct answer
+			currentQuestion += 1 #Increment current question
+			session['currentQuestion'] = currentQuestion #Save to cookies
+			session['score'] = score #Save score
+	else:
+		correctAnswer = session.get('correctAnswer', None)  # Get correct answer
+		answer = request.form['answer']  # Get answer from button press
+
+		array = [['A', 'B', 'C', 'D'], [0, 1, 2, 3]]  # Array of options and numbers
+
+		if answer is not None and answer in array[0]:
+			if correctAnswer == array[1][array[0].index(answer)]:
+				score += 10  # Increment on correct
+			else:
+				score -= 5  # Decrement on wrong
+		session['score'] = score  # Save score
+		return redirect(url_for('gameComplete'))
+
+
+	return render_template('mediumquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
+						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions)
+
+@app.route("/hardGame/", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
+def play_hardGame():
+	curruser = session.get('curruser', None) #Get username
+
+	if not curruser:
+		return redirect(url_for('index'))
+
+	numQuestions = session.get('numQuestions', None) #Get number of questions
+	currentQuestion = session.get('currentQuestion', None) #Get current question counter
+	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
+	ret = get_questions(listOfQuestions, easyQuestions)
+	listOfQuestions.append(ret[5]) #Add used questions
+	score = session.get('score', None) #Get score
+
+	if currentQuestion < numQuestions:
+		if request.method == 'GET':
+			session['correctAnswer'] = ret[6] #Set correct answer
+		if request.method == 'POST':
+			correctAnswer = session.get('correctAnswer', None) #Get correct answer
+			answer = request.form['answer']  #Get answer from button press
+
+			array = [['A', 'B', 'C', 'D'],[0, 1, 2, 3]] #Array of options and numbers
+
+			if answer is not None and answer in array[0]:
+				if correctAnswer == array[1][array[0].index(answer)]:
+					score += 10 #Increment on correct
+				else:
+					score -=5 #Decrement on wrong
+
+			session['correctAnswer'] = ret[6] #Save correct answer
+			currentQuestion += 1 #Increment current question
+			session['currentQuestion'] = currentQuestion #Save to cookies
+			session['score'] = score #Save score
+	else:
+		correctAnswer = session.get('correctAnswer', None)  # Get correct answer
+		answer = request.form['answer']  # Get answer from button press
+
+		array = [['A', 'B', 'C', 'D'], [0, 1, 2, 3]]  # Array of options and numbers
+
+		if answer is not None and answer in array[0]:
+			if correctAnswer == array[1][array[0].index(answer)]:
+				score += 10  # Increment on correct
+			else:
+				score -= 5  # Decrement on wrong
+		session['score'] = score  # Save score
+		return redirect(url_for('gameComplete'))
+
+
+	return render_template('hardquiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
 						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions)
 
 @app.route("/complete/", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
