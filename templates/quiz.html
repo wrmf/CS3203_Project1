@@ -1,22 +1,77 @@
+
 <html>
 	<head>
 		<title>Easy Quiz Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
+         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+        <style>
+        table, th, td {
+        border: 1px solid black;
+        border-radius: 10px;
+        }
+        table {
+            border: 1px solid black;
+            border-radius: 10px;
+        }
+        td{
+              height: 50px;
+              width: 50px;
+        }
+        button {
+          background-color: #04AA6D;
+          border: none;
+          color: white;
+          padding: 20px;
+          text-align: center;
+          text-decoration: none;
+          display: inline-block;
+          font-size: 16px;
+          margin: 4px 2px;
+          border-radius: 50%;
+        }
+    </style>
 	</head>
 	<body>
-         <span>Question: {{ question }}</span><br><br>
 
-    	<form action="/game/{{ gametype }}" method="POST">
-			<button name="answer" value="A">Answer A: {{ answer1 }}</button>
-			<button name="answer" value="B">Answer B: {{ answer2 }}</button>
-			<button name="answer" value="C">Answer C: {{ answer3 }}</button>
-			<button name="answer" value="D">Answer D: {{ answer4 }}</button>
-	    </form>
+         <div class="loggedUser">
+			<span style="float: right">Logged in as:</span><br/>
+			<span style="float: right">{{ currentuser }}</span>
+        </div>
+    <br><br>
+    <b>Score: </b><div id="score"></div>
+    <b>High Score: </b><br>
+         <b> Question: </b> <div id="currQ"></div>/{{ maxQ }}<br/>
+    <table style = "width:75%;margin-left:auto;margin-right:auto;">
+        <tr>
+            <td style="text-align: center; vertical-align: middle;" colspan="2";>Question: {{ question }}</td>
+        </tr>
+        <tr>
+            <td style="text-align: center; vertical-align: middle;"><button class="button" id="A" py-onClick="speak()">Answer A: {{ answer1 }}</button></td>
+            <td style="text-align: center; vertical-align: middle;"><button class="button" id="B" py-onClick="speak()">Answer B: {{ answer2 }}</button></td>
+        </tr>
+        <tr>
+            <td style="text-align: center; vertical-align: middle;"><button class="button" id="C" py-onClick="speak()">Answer C: {{ answer3 }}</button></td>
+            <td style="text-align: center; vertical-align: middle;"><button class="button" id="D" py-onClick="speak()">Answer D: {{ answer4 }}</button></td>
+        </tr>
+    </table>
 
-        <span>Score: {{ score }}</span><br/>
-        <span>Question {{ currQ }}/{{ maxQ }}</span><br/>
+<py-script>
 
+score = 0;
+question = 1;
+Element('score').write(score)
+Element('currQ').write(question)
+def speak():
+    global score
+    global question
+    score += 5
+    question +=1
+    Element('score').write(score)
+    Element('currQ').write(question)
 
+</py-script>
 	</body>
 
 </html>
+
