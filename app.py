@@ -78,7 +78,7 @@ def sign_up():
 		if username in users:	# Check if username is already in 'users.txt'
 			error = 'Username taken'
 		else:
-			if (password == confirm):	# Check that the entered password and the re-entered passwords match
+			if password == confirm:	# Check that the entered password and the re-entered passwords match
 				# Add the username, password, and highscore to their respective lists
 				users.append(username)
 				passwords.append(password)
@@ -92,6 +92,34 @@ def sign_up():
 				error = 'Passwords do not match'
 
 	return render_template('sign-up.html', error=error)
+
+@app.route("/change_password/", methods=[ 'GET', 'POST' ])
+def change_password():
+	curruser = session.get('curruser', None)
+	idx = users.index(curruser)  	# Index of the curruser in the lists
+	error = None
+
+	if not curruser:
+		return redirect(url_for('index'))
+
+	if request.method == 'POST':
+		currpass = request.form['currpass']
+		newpass = request.form['newpass']
+		newconfirm = request.form['newconfirm']
+
+		if request.form.get('exit') == 'Exit':  	# Return to home
+			return redirect(url_for('home'))
+		if currpass == passwords[idx]:  # Check that current password is correct
+			if newpass == newconfirm:  # Confirm new password
+				passwords[idx] = newpass
+				resave_file()
+				return redirect(url_for('home'))
+			else:
+				error = 'New passwords do not match'
+		else:
+			error = 'Incorrect current password'
+
+	return render_template('change-pass.html', error=error)
 
 # home page
 @app.route("/home/", methods=[ 'GET', 'POST' ])
@@ -109,6 +137,8 @@ def home():
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
+		if request.form.get('change-pass') == 'Change Password':  	# Redirect to change password page
+			return redirect(url_for('change_password'))
 
 	return render_template('home.html', currentuser = curruser)
 
