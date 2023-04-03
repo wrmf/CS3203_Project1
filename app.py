@@ -111,9 +111,12 @@ def change_password():
 			return redirect(url_for('home'))
 		if currpass == passwords[idx]:  # Check that current password is correct
 			if newpass == newconfirm:  # Confirm new password
-				passwords[idx] = newpass
-				resave_file()
-				return redirect(url_for('home'))
+				if newpass != currpass:
+					passwords[idx] = newpass
+					resave_file()
+					return redirect(url_for('home'))
+				else:
+					error = 'New password cannot be the same as your old password'
 			else:
 				error = 'New passwords do not match'
 		else:
@@ -273,6 +276,7 @@ def gameComplete(gametype):
 	return render_template('complete.html', message=message, curruser=curruser) #Render window
 
 if __name__ == "__main__":
+	read_from_file()
 	port = 5000
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
