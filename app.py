@@ -22,10 +22,7 @@ def index():
 	read_from_file()
 	curruser = session.get('curruser', None)
 
-	if curruser:
-		return redirect(url_for('home'))
-
-	elif request.method == 'POST':
+	if request.method == 'POST':
 		# Go to login page
 		if request.form.get('log') == 'Login':
 			return redirect(url_for('login'))
@@ -135,8 +132,6 @@ def home():
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
-			session['curruser'] = 'NEVERUSETHISUSERNAMEFORANYREALPERSON'
-			##todo logout
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
@@ -174,6 +169,8 @@ def play():
 					return redirect(url_for('play_game', gametype='medium')) #Redirect to /easyGame
 				elif request.form.get('go') == 'GO (hard difficulty)':  # This is a login button to take users to the login page
 					return redirect(url_for('play_game', gametype='hard')) #Redirect to /easyGame
+				elif request.form.get('go') == 'Exit':  # This is a login button to take users to the login page
+					return redirect(url_for('home')) #Redirect to /home
 
 	return render_template('play.html')
 
