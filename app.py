@@ -8,7 +8,7 @@ TEMPLATES_AUTO_RELOAD = True
 
 MAXQUESTIONS = 5
 MINQUESTIONS = 2
-#this is a comment to test if i can merge
+#this is a comment to test if i can merge to main branch
 # Flask Web App
 app = Flask(__name__)
 
