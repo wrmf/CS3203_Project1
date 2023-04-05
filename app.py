@@ -152,25 +152,29 @@ def play():
 	if request.method == 'POST':
 		if request.form.get('go'):
 			numQ = request.form['numQ']	# Get username
-			if numQ.isdigit():
-				numQ = int(numQ)
-				if numQ < MINQUESTIONS: #Check if number input was less than minimum
-					numQuestions = MINQUESTIONS
-				elif numQ > MAXQUESTIONS: #Check if number input was more than maximum
-					numQuestions = MAXQUESTIONS
+
+			if numQ.isdigit():  # checks if numQ is comprised of digits.
+				numQ = int(numQ)  # if it is digits it is converted to an int
+				if MINQUESTIONS <= numQ <= MAXQUESTIONS:  # checks if numQ is within bounds
+					numQuestions = numQ
 				else:
-					numQuestions = numQ #Set number of questions to ask
-				session['numQuestions'] = numQuestions #Save to session
-				session['currentQuestion'] = 1 #reset current question counter
-				session['score'] = 0 #Reset score
-				if request.form.get('go') == 'GO (easy difficulty)':  # This is a login button to take users to the login page
-					return redirect(url_for('play_game', gametype='easy')) #Redirect to /easyGame
-				elif request.form.get('go') == 'GO (medium difficulty)':  # This is a login button to take users to the login page
-					return redirect(url_for('play_game', gametype='medium')) #Redirect to /easyGame
-				elif request.form.get('go') == 'GO (hard difficulty)':  # This is a login button to take users to the login page
-					return redirect(url_for('play_game', gametype='hard')) #Redirect to /easyGame
-				elif request.form.get('go') == 'Exit':  # This is a login button to take users to the login page
-					return redirect(url_for('home')) #Redirect to /home
+					errorStatement = "Please enter valid number..."  # statement to be passed to play.html
+					return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+			else:
+				errorStatement = "Please enter valid number..."  # if it isnt error statment is ran to try again
+				return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+
+			session['numQuestions'] = numQuestions #Save to session
+			session['currentQuestion'] = 1 #reset current question counter
+			session['score'] = 0 #Reset score
+			if request.form.get('go') == 'GO (easy difficulty)':  # This is a login button to take users to the login page
+				return redirect(url_for('play_game', gametype='easy')) #Redirect to /easyGame
+			elif request.form.get('go') == 'GO (medium difficulty)':  # This is a login button to take users to the login page
+				return redirect(url_for('play_game', gametype='medium')) #Redirect to /easyGame
+			elif request.form.get('go') == 'GO (hard difficulty)':  # This is a login button to take users to the login page
+				return redirect(url_for('play_game', gametype='hard')) #Redirect to /easyGame
+			elif request.form.get('go') == 'Exit':  # This is a login button to take users to the login page
+				return redirect(url_for('home')) #Redirect to /home
 
 	return render_template('play.html')
 
