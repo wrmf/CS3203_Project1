@@ -26,5 +26,4 @@ def resave_file():
 	# Make new dataframe with new values
 	temp_df = pd.DataFrame(list(zip(users, passwords, highscoresE, highscoresM, highscoresH)), columns=['Username', 'Password', 'HSE', 'HSM', 'HSH'])
 	user_df = temp_df	# Replace old dataframe with new values
-	read_from_file()	# Load new values into lists
 	user_df.to_csv(USERFILE_PATH, index = False)	# Save as .csv
