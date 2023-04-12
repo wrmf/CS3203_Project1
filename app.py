@@ -254,9 +254,9 @@ def gameComplete(gametype):
 		if gametype == 'easy':
 			hs = int(highscoresE[users.index(curruser)])  # Get high score
 		elif gametype == 'medium':
-			hs = int(highscoresE[users.index(curruser)])  # Get high score
+			hs = int(highscoresM[users.index(curruser)])  # Get high score
 		elif gametype == 'hard':
-			hs = int(highscoresE[users.index(curruser)])  # Get high score
+			hs = int(highscoresH[users.index(curruser)])  # Get high score
 
 	if score > hs:
 		message = f'You beat your previous high score of {hs} with a new high score of {score}!' #Set message
