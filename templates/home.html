@@ -10,6 +10,11 @@
 			font-size: 20px;
 			font-weight: bold;
 		}
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+            }
+
 	</style>
 	<body>
 		<!-- Display the logged in user in the top right -->
@@ -23,10 +28,14 @@
 				<!-- Button to navigate to 'index' page -->
 				<input type="submit" style="float:right" value="Logout" name="ind"/>
 			</form>
-            <form method="post" action="/play">
+
+                <form method="post" action="/play">
+                    <table class="center">
+            <tr>
 				<!-- Button to navigate to 'index' page -->
-				<input type="submit" style="float: left" value="Play" name="play"/>
-				<br>
+                <td><input type="submit" style="float: left" value="Play" name="play"/></td>
+            </tr>
+                    </table>
 			</form>
 	</body>
 </html>

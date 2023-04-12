@@ -12,66 +12,81 @@
         }
         table {
             border: 1px solid black;
-            border-radius: 10px;
+            border-radius: 20px;
+
         }
         td{
               height: 50px;
               width: 50px;
         }
-        button {
-          background-color: #04AA6D;
+        .button {
+          position: relative;
+          background-color: #4CAF50;
           border: none;
-          color: white;
+            border-radius: 10px
+          font-size: 28px;
+          color: #FFFFFF;
           padding: 20px;
+          width: 600px;
           text-align: center;
+          transition-duration: 0.4s;
           text-decoration: none;
-          display: inline-block;
-          font-size: 16px;
-          margin: 4px 2px;
-          border-radius: 50%;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .button:after {
+          content: "";
+          background: #f1f1f1;
+          display: block;
+          position: absolute;
+          padding-top: 300%;
+          padding-left: 350%;
+          margin-left: -20px !important;
+          margin-top: -120%;
+          opacity: 0;
+          transition: all 0.8s
+        }
+
+        .button:active:after {
+          padding: 0;
+          margin: 0;
+          opacity: 1;
+          transition: 0s
         }
     </style>
 	</head>
 	<body>
 
          <div class="loggedUser">
-			<span style="float: right">Logged in as:</span><br/>
-			<span style="float: right">{{ currentuser }}</span>
+             <span style="float: right"><b>Logged in as:</b></span><br/>
+             <span style="float: right"><b>{{ currentuser }}</b></span>
         </div>
     <br><br>
-    <b>Score: </b><div id="score"></div>
-    <b>High Score: </b><br>
-         <b> Question: </b> <div id="currQ"></div>/{{ maxQ }}<br/>
+         <span><b>Score: </b>{{ score }}</span><br/>
+         <b>High Score: </b> {{ highscore }}<br>
+         <span><b>Question: </b>{{ currQ }}/{{ maxQ }}</span><br/>
+
+
     <table style = "width:75%;margin-left:auto;margin-right:auto;">
         <tr>
             <td style="text-align: center; vertical-align: middle;" colspan="2";>Question: {{ question }}</td>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;"><button class="button" id="A" py-onClick="speak()">Answer A: {{ answer1 }}</button></td>
-            <td style="text-align: center; vertical-align: middle;"><button class="button" id="B" py-onClick="speak()">Answer B: {{ answer2 }}</button></td>
+            <form action="/game/{{ gametype }}" method="POST">
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="A">Answer A: {{ answer1 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class="button" id="B" py-onClick="speak()">Answer B: {{ answer2 }}</button></td>
+            </form>
         </tr>
         <tr>
-            <td style="text-align: center; vertical-align: middle;"><button class="button" id="C" py-onClick="speak()">Answer C: {{ answer3 }}</button></td>
-            <td style="text-align: center; vertical-align: middle;"><button class="button" id="D" py-onClick="speak()">Answer D: {{ answer4 }}</button></td>
+            <form action="/game/{{ gametype }}" method="POST">
+                <td style="text-align: center; vertical-align: middle;"><button class="button" id="C" py-onClick="speak()">Answer C: {{ answer3 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class="button" id="D" py-onClick="speak()">Answer D: {{ answer4 }}</button></td>
+            </form>
         </tr>
     </table>
 
-<py-script>
 
-score = 0;
-question = 1;
-Element('score').write(score)
-Element('currQ').write(question)
-def speak():
-    global score
-    global question
-    score += 5
-    question +=1
-    Element('score').write(score)
-    Element('currQ').write(question)
-
-</py-script>
 	</body>
 
 </html>
-
