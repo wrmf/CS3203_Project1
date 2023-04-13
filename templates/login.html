@@ -2,24 +2,49 @@
 	<head>
 		<title>Login Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
+        <style>
+            div{
+                text-align: center;
+            }
+            input[type=text]:focus {
+              background-color: lightgreen;
+            alignment: center;
+            }
+            input[type=password]:focus {
+              background-color: lightgreen;
+            alignment: center;
+            }
+            table.center {
+            margin-left: auto;
+            margin-right: auto;
+            }
+            tr, td{
+               margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
 	</head>
 	<body>
 		<div class="container">
 			<h1>Login</h1>
 				<p>Enter Username and Password:</p>
 			<form action="" method="post">
-
+                <table class = "center">
+                    <tr>
 				<!-- This is the field to enter the username -->
-				<input type="text" placeholder="Username" name="username" value="{{
-				 request.form.username }}">
-				<br>
+				<td><input type="text" placeholder="Username" name="username" value="{{
+                        request.form.username }}"></td>
+                    </tr>
 
 				<!-- This is the field to enter the password -->
-				<input type="password" placeholder="Password" name="password" value="{{
-				 request.form.password }}">
+				<tr><td class = "center"><input type="password" placeholder="Password" name="password" value="{{
+                        request.form.password }}"></td></tr>
 
 				<!-- Submit button -->
-				<input class="btn btn-default" type="submit" value="login">
+                    <tr><td><input class="btn btn-default" type="submit" value="login"></td></tr>
+                </table>
 			</form>
 			<!-- Output error (error defined in app.py -->
 			{% if error %}
