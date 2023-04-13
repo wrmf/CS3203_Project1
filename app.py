@@ -4,11 +4,12 @@ from modules.questions import *
 from fileIO import *
 import pandas as pd
 
+
 TEMPLATES_AUTO_RELOAD = True
 
 MAXQUESTIONS = 5
 MINQUESTIONS = 2
-
+#this is a comment to test if i can merge to main branch
 # Flask Web App
 app = Flask(__name__)
 
@@ -22,10 +23,7 @@ def index():
 	read_from_file()
 	curruser = session.get('curruser', None)
 
-	if curruser:
-		return redirect(url_for('home'))
-
-	elif request.method == 'POST':
+	if request.method == 'POST':
 		# Go to login page
 		if request.form.get('log') == 'Login':
 			return redirect(url_for('login'))
@@ -78,7 +76,7 @@ def sign_up():
 		if username in users:	# Check if username is already in 'users.txt'
 			error = 'Username taken'
 		else:
-			if (password == confirm):	# Check that the entered password and the re-entered passwords match
+			if password == confirm:	# Check that the entered password and the re-entered passwords match
 				# Add the username, password, and highscore to their respective lists
 				users.append(username)
 				passwords.append(password)
@@ -93,6 +91,37 @@ def sign_up():
 
 	return render_template('sign-up.html', error=error)
 
+@app.route("/change_password/", methods=[ 'GET', 'POST' ])
+def change_password():
+	curruser = session.get('curruser', None)
+	idx = users.index(curruser)  	# Index of the curruser in the lists
+	error = None
+
+	if not curruser:
+		return redirect(url_for('index'))
+
+	if request.method == 'POST':
+		currpass = request.form['currpass']
+		newpass = request.form['newpass']
+		newconfirm = request.form['newconfirm']
+
+		if request.form.get('exit') == 'Exit':  	# Return to home
+			return redirect(url_for('home'))
+		if currpass == passwords[idx]:  # Check that current password is correct
+			if newpass == newconfirm:  # Confirm new password
+				if newpass != currpass:
+					passwords[idx] = newpass
+					resave_file()
+					return redirect(url_for('home'))
+				else:
+					error = 'New password cannot be the same as your old password'
+			else:
+				error = 'New passwords do not match'
+		else:
+			error = 'Incorrect current password'
+
+	return render_template('change-pass.html', error=error)
+
 # home page
 @app.route("/home/", methods=[ 'GET', 'POST' ])
 def home():
@@ -104,11 +133,11 @@ def home():
 
 	if request.method == 'POST':
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
-			session['curruser'] = 'NEVERUSETHISUSERNAMEFORANYREALPERSON'
-			##todo logout
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
 			return redirect(url_for('play')) #redirect to play page
+		if request.form.get('change-pass') == 'Change Password':  	# Redirect to change password page
+			return redirect(url_for('change_password'))
 
 	return render_template('home.html', currentuser = curruser)
 
@@ -123,15 +152,23 @@ def play():
 
 	if request.method == 'POST':
 		if request.form.get('go'):
-			numQ = request.form['numQ']	# Get username
-			if numQ.isdigit():
-				numQ = int(numQ)
-				if numQ < MINQUESTIONS: #Check if number input was less than minimum
-					numQuestions = MINQUESTIONS
-				elif numQ > MAXQUESTIONS: #Check if number input was more than maximum
-					numQuestions = MAXQUESTIONS
+			if request.form.get('go') == 'Exit':  # This is a login button to take users to the login page
+				return redirect(url_for('home')) #Redirect to /home
+			else:
+				numQ = request.form['numQ']	# Get username
+
+
+				if numQ.isdigit():  # checks if numQ is comprised of digits.
+					numQ = int(numQ)  # if it is digits it is converted to an int
+					if MINQUESTIONS <= numQ <= MAXQUESTIONS:  # checks if numQ is within bounds
+						numQuestions = numQ
+					else:
+						errorStatement = "Please enter valid number..."  # statement to be passed to play.html
+						return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
 				else:
-					numQuestions = numQ #Set number of questions to ask
+					errorStatement = "Please enter valid number..."  # if it isnt error statment is ran to try again
+					return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+
 				session['numQuestions'] = numQuestions #Save to session
 				session['currentQuestion'] = 1 #reset current question counter
 				session['score'] = 0 #Reset score
@@ -220,9 +257,9 @@ def gameComplete(gametype):
 		if gametype == 'easy':
 			hs = int(highscoresE[users.index(curruser)])  # Get high score
 		elif gametype == 'medium':
-			hs = int(highscoresE[users.index(curruser)])  # Get high score
+			hs = int(highscoresM[users.index(curruser)])  # Get high score
 		elif gametype == 'hard':
-			hs = int(highscoresE[users.index(curruser)])  # Get high score
+			hs = int(highscoresH[users.index(curruser)])  # Get high score
 
 	if score > hs:
 		message = f'You beat your previous high score of {hs} with a new high score of {score}!' #Set message
@@ -243,6 +280,7 @@ def gameComplete(gametype):
 	return render_template('complete.html', message=message, curruser=curruser) #Render window
 
 if __name__ == "__main__":
+	read_from_file()
 	port = 5000
 	if(len(sys.argv) >= 2):
 		port = sys.argv[1]
