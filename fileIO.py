@@ -6,6 +6,7 @@ user_df = pd.read_csv(USERFILE_PATH)
 
 # Read usernames, passwords, and highscores from 'users.csv' file, then add them to the lists
 def read_from_file():
+	user_df = pd.read_csv(USERFILE_PATH)
 	user_df.reset_index()
 	users.clear(); passwords.clear(); highscoresE.clear(); highscoresM.clear(); highscoresH.clear()
 	for index, row in user_df.iterrows():

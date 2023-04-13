@@ -3,6 +3,7 @@ import sys
 from modules.questions import *
 from fileIO import *
 import pandas as pd
+import importlib
 
 
 TEMPLATES_AUTO_RELOAD = True
@@ -14,8 +15,9 @@ MINQUESTIONS = 2
 app = Flask(__name__)
 
 easyQuestions = pd.read_csv('static/easyQuestions.csv')
-mediumQuestions = pd.read_csv('static/easyQuestions.csv')
-hardQuestions = pd.read_csv('static/easyQuestions.csv')
+mediumQuestions = pd.read_csv('static/mediumQuestions.csv')
+hardQuestions = pd.read_csv('static/hardQuestions.csv')
+
 
 # index page
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
@@ -36,7 +38,17 @@ def index():
 			if not curruser:
 				error = 'Currently not logged in.'
 				return render_template('index.html', error=error)
+			else:
+				return redirect(url_for('home'))
 	return render_template('index.html', error=None)
+
+def toBinary(a):
+	l,m=[],[]
+	for i in a:
+		l.append(ord(i))
+	for i in l:
+		m.append(int(bin(i)[2:]))
+	return m
 
 # login page
 @app.route("/login/", methods=[ 'GET', 'POST' ])
@@ -51,6 +63,8 @@ def login():
 			error = 'Invalid credentials'	# If not, print error and prompt for input
 		elif username != 'admin':
 			idx = users.index(username)	# Get the index of the user in the three lists
+			read_from_file()
+
 			if password != passwords[idx]:	# Make sure it is the correct password for this user
 				error = 'Incorrect password'
 			else:
