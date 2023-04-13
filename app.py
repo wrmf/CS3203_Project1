@@ -249,9 +249,8 @@ def play_game(gametype):
 		session['score'] = score  # Save score
 		return redirect(url_for('gameComplete', gametype=gametype))
 
-
 	return render_template('quiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
-						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions, gametype=gametype)
+						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions, gametype=gametype, currentuser=curruser)
 
 @app.route("/complete/<gametype>", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def gameComplete(gametype):

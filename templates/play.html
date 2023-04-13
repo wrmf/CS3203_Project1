@@ -29,12 +29,15 @@
     </div>
             <form method="post" action="">
                 <div>
-                <input type="text" placeholder="Enter # of questions" name="numQ" required>
+                <input type="text" placeholder="Enter # of questions" name="numQ">
                 </div>
-                <br>
                 <div>
 				<!-- Button to navigate to 'index' page -->
                     <table class ="center">
+                            {% if errorStatement %}
+                                {{ errorStatement }} between {{ min }} and {{ max }}
+                            {% endif %}
+                        <br>
                         <tr>
                             <td><input type="submit" style="float: left" value="GO (easy difficulty)" name="go"/></td>
                             <td><input type="submit" style="float: left" value="GO (medium difficulty)" name="go"/></td>
