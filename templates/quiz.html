@@ -3,8 +3,6 @@
 	<head>
 		<title>Easy Quiz Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
-         <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-         <script defer src="https://pyscript.net/latest/pyscript.js"></script>
         <style>
         table, th, td {
         border: 1px solid black;
@@ -75,13 +73,13 @@
         <tr>
             <form action="/game/{{ gametype }}" method="POST">
                 <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="A">Answer A: {{ answer1 }}</button></td>
-                <td style="text-align: center; vertical-align: middle;"><button class="button" id="B" py-onClick="speak()">Answer B: {{ answer2 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="B">Answer B: {{ answer2 }}</button></td>
             </form>
         </tr>
         <tr>
             <form action="/game/{{ gametype }}" method="POST">
-                <td style="text-align: center; vertical-align: middle;"><button class="button" id="C" py-onClick="speak()">Answer C: {{ answer3 }}</button></td>
-                <td style="text-align: center; vertical-align: middle;"><button class="button" id="D" py-onClick="speak()">Answer D: {{ answer4 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="C">Answer C: {{ answer3 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="D">Answer D: {{ answer4 }}</button></td>
             </form>
         </tr>
     </table>
