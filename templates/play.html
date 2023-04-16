@@ -1,21 +1,52 @@
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 	<head>
 		<title>Play game</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
+        <style>
+            table, td{
+                border-collapse: collapse;
+            }
+        input[type=text]:focus {
+              background-color: lightgreen;
+            alignment: center;
+            }
+        input[type=submit]:focus{
+            alignment: center;
+        }
+        div{
+           text-align: center;
+
+        }
+        table.center {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        </style>
 	</head>
 	<body>
+    <div>
          <span>Please select the type of quiz and the number of questions</span><br><br>
-		 	{% if errorStatement %}
-   					{{ errorStatement }} between {{ min }} and {{ max }}
- 		 	{% endif %}
+    </div>
             <form method="post" action="">
-                <input type="text" placeholder="Enter # of questions" name="numQ" required>
-                <br>
+                <div>
+                <input type="text" placeholder="Enter # of questions" name="numQ">
+                </div>
+                <div>
 				<!-- Button to navigate to 'index' page -->
-				<input type="submit" style="float: left" value="GO (easy difficulty)" name="go"/>
-				<input type="submit" style="float: left" value="GO (medium difficulty)" name="go"/>
-				<input type="submit" style="float: left" value="GO (hard difficulty)" name="go"/>
-                <input type="submit" style="float: left" value="Exit" name="go"/>
+                    <table class ="center">
+                            {% if errorStatement %}
+                                {{ errorStatement }} between {{ min }} and {{ max }}
+                            {% endif %}
+                        <br>
+                        <tr>
+                            <td><input type="submit" style="float: left" value="GO (easy difficulty)" name="go"/></td>
+                            <td><input type="submit" style="float: left" value="GO (medium difficulty)" name="go"/></td>
+                            <td><input type="submit" style="float: left" value="GO (hard difficulty)" name="go"/></td>
+                            <td><input type="submit" style="float: left" value="Exit" name="go"/></td>
+                        </tr>
+            </table>
+                </div>
+
 			</form>
 
 	</body>

@@ -1,20 +1,88 @@
+
 <html>
 	<head>
 		<title>Easy Quiz Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
+        <style>
+        table, th, td {
+        border: 1px solid black;
+        border-radius: 10px;
+        }
+        table {
+            border: 1px solid black;
+            border-radius: 20px;
+
+        }
+        td{
+              height: 50px;
+              width: 50px;
+        }
+        .button {
+          position: relative;
+          background-color: #4CAF50;
+          border: none;
+            border-radius: 10px
+          font-size: 28px;
+          color: #FFFFFF;
+          padding: 20px;
+          width: 600px;
+          text-align: center;
+          transition-duration: 0.4s;
+          text-decoration: none;
+          overflow: hidden;
+          cursor: pointer;
+        }
+
+        .button:after {
+          content: "";
+          background: #f1f1f1;
+          display: block;
+          position: absolute;
+          padding-top: 300%;
+          padding-left: 350%;
+          margin-left: -20px !important;
+          margin-top: -120%;
+          opacity: 0;
+          transition: all 0.8s
+        }
+
+        .button:active:after {
+          padding: 0;
+          margin: 0;
+          opacity: 1;
+          transition: 0s
+        }
+    </style>
 	</head>
 	<body>
-         <span>Question: {{ question }}</span><br><br>
 
-    	<form action="/game/{{ gametype }}" method="POST">
-			<button name="answer" value="A">Answer A: {{ answer1 }}</button>
-			<button name="answer" value="B">Answer B: {{ answer2 }}</button>
-			<button name="answer" value="C">Answer C: {{ answer3 }}</button>
-			<button name="answer" value="D">Answer D: {{ answer4 }}</button>
-	    </form>
+         <div class="loggedUser">
+             <span style="float: right"><b>Logged in as:</b></span><br/>
+             <span style="float: right"><b>{{ currentuser }}</b></span>
+        </div>
+    <br><br>
+         <span><b>Score: </b>{{ score }}</span><br/>
+         <b>High Score: </b> {{ highscore }}<br>
+         <span><b>Question: </b>{{ currQ }}/{{ maxQ }}</span><br/>
 
-        <span>Score: {{ score }}</span><br/>
-        <span>Question {{ currQ }}/{{ maxQ }}</span><br/>
+
+    <table style = "width:75%;margin-left:auto;margin-right:auto;">
+        <tr>
+            <td style="text-align: center; vertical-align: middle;" colspan="2";>Question: {{ question }}</td>
+        </tr>
+        <tr>
+            <form action="/game/{{ gametype }}" method="POST">
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="A">Answer A: {{ answer1 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="B">Answer B: {{ answer2 }}</button></td>
+            </form>
+        </tr>
+        <tr>
+            <form action="/game/{{ gametype }}" method="POST">
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="C">Answer C: {{ answer3 }}</button></td>
+                <td style="text-align: center; vertical-align: middle;"><button class= "button" name="answer" value="D">Answer D: {{ answer4 }}</button></td>
+            </form>
+        </tr>
+    </table>
 
 
 	</body>
