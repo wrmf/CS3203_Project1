@@ -13,8 +13,8 @@ MINQUESTIONS = 2
 app = Flask(__name__)
 
 easyQuestions = pd.read_csv('static/easyQuestions.csv')
-mediumQuestions = pd.read_csv('static/easyQuestions.csv')
-hardQuestions = pd.read_csv('static/easyQuestions.csv')
+mediumQuestions = pd.read_csv('static/mediumQuestions.csv')
+hardQuestions = pd.read_csv('static/hardQuestions.csv')
 
 # index page
 @app.route("/", methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
@@ -195,7 +195,7 @@ def play_game(gametype):
 	numQuestions = session.get('numQuestions', None) #Get number of questions
 	currentQuestion = session.get('currentQuestion', None) #Get current question counter
 	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
-	ret = get_questions(listOfQuestions, fileQuestions)
+	ret = get_questions(listOfQuestions, fileQuestions, MAXQUESTIONS)
 	listOfQuestions.append(ret[5]) #Add used questions
 	score = session.get('score', None) #Get score
 
