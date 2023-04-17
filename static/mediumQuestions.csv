@@ -1,21 +1,21 @@
 Question,Correct
-question one,Correct answer
-question two,wrong
-question three,wrong
-question four,wrong
-question five,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
+Which of the following is NOT a component of software engineering?,Computer hardware design
+What is a microservice?,Project management
+What is NOT an ideal characteristic of a micro service?,Testing and Validation
+What is NOT a cloud software characteristic?,Requirements Engineering
+What does software-as-a-service mean?,A software architecture pattern
+,A type of programming language
+,A database management system
+,A user interface design principle
+,Multiple features
+,Lightweight
+,independently deployable
+,Self-contained
+,Immutable
+,Elasticity
+,Scalable
+,Resiliant
+,A model of delivering software applications over the internet
+,A type of cloud infrastructure that provides virtual servers and storage.
+,An approach to developing software that emphasizes modularity and reusability
+,A type of software that is installed and run on a user's local computer

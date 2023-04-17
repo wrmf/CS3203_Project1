@@ -208,16 +208,16 @@ def play_game(gametype):
 	elif gametype == 'hard':
 		fileQuestions = hardQuestions
 
-	numQuestions = session.get('numQuestions', None) #Get number of questions
-	currentQuestion = session.get('currentQuestion', None) #Get current question counter
-	listOfQuestions = [] #TODO fix this to make questions only able to be asked once
+	numQuestions = session.get('numQuestions', None)  # Get number of questions
+	currentQuestion = session.get('currentQuestion', None)  # Get current question counter
+	listOfQuestions = []  # TODO fix this to make questions only able to be asked once
 	ret = get_questions(listOfQuestions, fileQuestions, MAXQUESTIONS)
-	listOfQuestions.append(ret[5]) #Add used questions
-	score = session.get('score', None) #Get score
+	listOfQuestions.append(ret[5])  # Add used questions
+	score = session.get('score', None)  # Get score
 
 	if currentQuestion < numQuestions:
 		if request.method == 'GET':
-			session['correctAnswer'] = ret[6] #Set correct answer
+			session['correctAnswer'] = ret[6] # Set correct answer
 		if request.method == 'POST':
 			correctAnswer = session.get('correctAnswer', None) #Get correct answer
 			answer = request.form['answer']  #Get answer from button press

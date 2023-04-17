@@ -1,21 +1,21 @@
 Question,Correct
-question one,Correct answer
-question two,wrong
-question three,wrong
-question four,wrong
-question five,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
-,Correct answer
-,wrong
-,wrong
-,wrong
+What type of testing is being done when the tester has little to no understating of the softwares inner workings?,Black box testing
+Which of the following is NOT a Agile methodology?,White box testing
+Which of the following best describes an injection attack?,Blind testing
+Which of the following best describes an Brute force attack?,Apprentice testing
+How can scenarios be used in software development?,Following a plan over the easy way out
+,Customer collaboration over contract negotiation
+,interactions over processes
+,Working software over comprehensive Documents
+,An attack that involves manipulating or injecting malicious code or data into a software system.
+,An attack that floods a system with requests in an attempt to overwhelm and shut it down.
+,An attack that intercepts data as it is transmitted over a network.
+,An attack that relies on exploiting weaknesses in password policies or encryption methods.
+,An attack that relies on exploiting weaknesses in password policies or encryption methods.
+,An attack that involves manipulating or injecting malicious code or data into a software system.
+,An attack that floods a system with requests in an attempt to overwhelm and shut it down.
+,An attack that intercepts data as it is transmitted over a network.
+,To simulate user interactions with a system and identify potential usability issues
+,To test the performance of a system under heavy load
+,To ensure that a system meets all of the specified functional requirements
+,To identify potential security vulnerabilities in a system
