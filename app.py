@@ -10,8 +10,6 @@ TEMPLATES_AUTO_RELOAD = True
 
 MAXQUESTIONS = 5
 MINQUESTIONS = 2
-#this is a comment to test if i can merge to main branch
-# Flask Web App
 app = Flask(__name__)
 
 easyQuestions = pd.read_csv('static/easyQuestions.csv')
