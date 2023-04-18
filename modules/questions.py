@@ -3,14 +3,11 @@ import pandas as pd
 
 def get_questions(listOfQuestions, questionList, maxQuestions):
 
-    # iterate through column question len(questionList['Question'])
-    #print(f"1: {questionList['Question']} {questionList['Correct']}")
-
     currentQuestion = random.randint(0, maxQuestions-1)
 
-    while currentQuestion in listOfQuestions:  # Make sure this question has not been asked already this game
-        currentQuestion = random.randint(0, maxQuestions-1)
-
+    if listOfQuestions is not None:
+        while currentQuestion in listOfQuestions:  # Make sure this question has not been asked already this game
+            currentQuestion = random.randint(0, maxQuestions-1)
 
     correctAnswer = currentQuestion * 4
 
@@ -44,5 +41,4 @@ def get_questions(listOfQuestions, questionList, maxQuestions):
             counterWrongAnswer += 1
             counter += 1
 
-    print(f"current question exit: {questionList['Question'][currentQuestion]}")
     return [questionList['Question'][currentQuestion], array[0], array[1], array[2], array[3], currentQuestion, placementOfRightAnswer]

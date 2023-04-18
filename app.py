@@ -180,6 +180,7 @@ def play():
 					errorStatement = "Please enter valid number..."  # if it isnt error statment is ran to try again
 					return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
 
+				session['listOfQuestions'] = []
 				session['numQuestions'] = numQuestions #Save to session
 				session['currentQuestion'] = 1 #reset current question counter
 				session['score'] = 0 #Reset score
@@ -208,16 +209,19 @@ def play_game(gametype):
 
 	numQuestions = session.get('numQuestions', None)  # Get number of questions
 	currentQuestion = session.get('currentQuestion', None)  # Get current question counter
-	listOfQuestions = []  # TODO fix this to make questions only able to be asked once
-	ret = get_questions(listOfQuestions, fileQuestions, MAXQUESTIONS)
-	listOfQuestions.append(ret[5])  # Add used questions
 	score = session.get('score', None)  # Get score
 
 	if currentQuestion < numQuestions:
+		ret = get_questions(session.get('listOfQuestions'), fileQuestions, MAXQUESTIONS)
+		LOQ = session.get('listOfQuestions')
+		LOQ = LOQ.append(ret[5])
+		session['listOfQuestion'] = LOQ
+
 		if request.method == 'GET':
 			session['correctAnswer'] = ret[6] # Set correct answer
 		if request.method == 'POST':
 			correctAnswer = session.get('correctAnswer', None) #Get correct answer
+
 			answer = request.form['answer']  #Get answer from button press
 
 			array = [['A', 'B', 'C', 'D'],[0, 1, 2, 3]] #Array of options and numbers
@@ -245,7 +249,6 @@ def play_game(gametype):
 				score -= 5  # Decrement on wrong
 		session['score'] = score  # Save score
 		return redirect(url_for('gameComplete', gametype=gametype))
-
 	return render_template('quiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
 						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions, gametype=gametype, currentuser=curruser)
 
