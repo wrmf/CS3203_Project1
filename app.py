@@ -39,14 +39,6 @@ def index():
 				return redirect(url_for('home'))
 	return render_template('index.html', error=None)
 
-def toBinary(a):
-	l,m=[],[]
-	for i in a:
-		l.append(ord(i))
-	for i in l:
-		m.append(int(bin(i)[2:]))
-	return m
-
 # login page
 @app.route("/login/", methods=[ 'GET', 'POST' ])
 def login():
