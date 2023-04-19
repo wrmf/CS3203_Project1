@@ -3,35 +3,73 @@
     <head>
         <meta charset="UTF-8">
         <title>Change password</title>
+        <style>
+            div{
+                text-align: center;
+            }
+            input[type=text]:focus {
+              background-color: lightgreen;
+            alignment: center;
+            }
+            input[type=password]:focus {
+              background-color: lightgreen;
+            alignment: center;
+            }
+            table.center {
+            margin-left: auto;
+            margin-right: auto;
+            }
+            tr, td{
+               margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
     </head>
     <body>
-        <form type="submit" action="/home">
-            <!-- Exit button -->
-            <input type="submit" style="float:right" value="Exit" name="exit"/>
-        </form>
-        <form method="post" action="">
+        <div class="container">
+            <h1>Change Password</h1>
+                <p>Enter Current Password and New Password:</p>
+            <form type="submit" action="/home">
+                <!-- Exit button -->
+                <input type="submit" style="float:right" value="Exit" name="exit"/>
+            </form>
+            <form method="post" action="">
+                <table class="center">
 
-            <!-- Enter current password -->
-            Enter current password: <br>
-            <input type="password" placeholder="Current Password" name="currpass" value="{{
-            request.form.currpass }}"> <br><br>
+                    <!-- Enter current password -->
+                    <tr>
+                        <td><input type="password" placeholder="Current Password" name="currpass" value="{{
+                        request.form.currpass }}"></td>
+                    </tr>
 
-            <!-- Enter new password -->
-            Enter new password: <br>
-            <input type="password" placeholder="New Password" name="newpass" value="{{
-            request.form.newpass }}"> <br><br>
+                    <!-- Enter new password -->
+                    <tr>
+                        <td><input type="password" placeholder="New Password" name="newpass" value="{{
+                        request.form.newpass }}"></td>
+                    </tr>
 
-            <!-- Confirm new password -->
-            Confirm new password: <br>
-            <input type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
-            request.form.newconfirm }}">
+                    <!-- Confirm new password -->
+                    <tr>
+                        <td><input type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
+                        request.form.newconfirm }}"></td>
+                    </tr>
 
-            <input type="submit" value="submit">
-        </form>
+                    <tr>
+                        <td><input type="submit" value="submit"></td>
+                    </tr>
 
-        <!-- Output error -->
-        {% if error %}
-            <p class="error"><strong>Error:</strong> {{ error}}
-        {% endif %}
+                    <tr>
+                        <td>
+                            <!-- Output error -->
+                            {% if error %}
+                            <p class="error"><strong>Error:</strong> {{ error}}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        </div>
     </body>
 </html>
