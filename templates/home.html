@@ -7,13 +7,18 @@
 	<style>
 		.loggedUser {
 			line-height: 1.5;
-			font-size: 20px;
+			font-size: 18px;
 			font-weight: bold;
 		}
         table.center {
             margin-left: auto;
             margin-right: auto;
-            }
+            margin-top: 100px;
+        }
+        .center {
+        	margin-left: auto;
+        	margin-right: auto;
+        }
 
 	</style>
 	<body>
@@ -22,24 +27,32 @@
 			<span style="float: right">Logged in as:</span><br/>
 			<span style="float: right">{{ currentuser }}</span>
 			<br>
-		</div>
-
-            <form type="submit" action="/">
-				<!-- Button to navigate to 'index' page -->
-				<input type="submit" style="float:right" value="Exit" name="ind"/>
-			</form>
-
-                <form method="post" action="/play">
-                    <table class="center">
-            <tr>
-				<!-- Button to navigate to 'index' page -->
-                <td><input type="submit" style="float: left" value="Play" name="play"/></td>
-            </tr>
-                    </table>
-			</form>
+			<!-- Section for buttons under logged in user -->
 			<form type="submit" action="/change_password">
-				<!-- Button to change password -->
-				<input type="submit" style ="float:right" value="Change Password" name="change-pass"/>
+				<table align="right">
+					<!-- Button to change password -->
+					<tr>
+						<td><input type="submit" value="Change Password" name="change-pass"/></td>
+					</tr>
+				</table>
 			</form>
+		</div>
+		<div class="container">
+			<!-- Section for center of screen with play button -->
+			<table class="center">
+				<!-- Button to navigate to 'play' page -->
+				<form method="post" action="/play">
+					<tr>
+                		<td><input type="submit" value="Play" name="play"/></td>
+            		</tr>
+				</form>
+				<!-- Button to navigate to 'index' page -->
+				<form type="submit" action="/">
+					<tr>
+						<td><input type="submit" style="margin-left:2px" value="Exit" name="ind"/></td>
+					</tr>
+				</form>
+			</table>
+		</div>
 	</body>
 </html>
