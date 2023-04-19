@@ -3,35 +3,70 @@
 	<head>
 		<title>Sign Up Placeholder Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
+		<style>
+            div{
+                text-align: center;
+            }
+            input[type=text]:focus {
+              	background-color: lightgreen;
+            	alignment: center;
+            }
+            input[type=password]:focus {
+              	background-color: lightgreen;
+            	alignment: center;
+            }
+            table.center {
+            	margin-left: auto;
+            	margin-right: auto;
+            }
+            tr, td {
+               	margin-left: auto;
+                margin-right: auto;
+                text-align: center;
+                vertical-align: middle;
+            }
+        </style>
 	</head>
 	<body>
 		<div class="container">
 			<h1>Sign Up</h1>
 				<p>Enter Username and Password:</p>
 			<form method="post" action="">
+				<table class="center">
 
-				<!-- Field to enter username -->
-				<input type="text" placeholder="Username" name="username" value="{{
-			 	request.form.username }}">
-				<br>
+					<!-- Field to enter username -->
+					<tr>
+						<td><input type="text" placeholder="Username" name="username" value="{{
+			 			request.form.username }}"></td>
+					</tr>
 
-				<!-- Field to enter password -->
-				<input type="password" placeholder="Password" name="password" value="{{
-			 	request.form.username }}">
-				<br>
+					<!-- Field to enter password -->
+					<tr>
+						<td><input type="password" placeholder="Password" name="password" value="{{
+			 			request.form.username }}"></td>
+					</tr>
 
-				<!-- Field to enter password confirmation -->
-				<input type="password" placeholder="Confirm Password" name="confirm" value="{{
-			 	request.form.confirm }}">
+					<!-- Field to enter password confirmation -->
+					<tr>
+						<td><input type="password" placeholder="Confirm Password" name="confirm" value="{{
+			 			request.form.confirm }}"></td>
+					</tr>
 
-				<!-- Submit button -->
-				<input class="btn btn-default" type="submit" value="Sign Up">
+					<!-- Submit button -->
+					<tr>
+						<td><input class="btn btn-default" type="submit" value="Sign Up"></td>
+					</tr>
+
+					<!-- Output error (error defined in app.py) -->
+					<tr>
+						<td>
+							{% if error %}
+								<p style="color:darkred" class="error"><strong>Error:</strong> {{ error}}
+							{% endif %}
+						</td>
+					</tr>
+				</table>
 			</form>
-			<!-- Output error (error defined in app.py) -->
-			{% if error %}
-				<p class="error"><strong>Error:</strong> {{ error}}
-			{% endif %}
 		</div>
 	</body>
-
 </html>

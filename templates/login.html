@@ -3,23 +3,23 @@
 		<title>Login Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
         <style>
-            div{
+            div {
                 text-align: center;
             }
             input[type=text]:focus {
-              background-color: lightgreen;
-            alignment: center;
+              	background-color: lightgreen;
+            	alignment: center;
             }
             input[type=password]:focus {
-              background-color: lightgreen;
-            alignment: center;
+              	background-color: lightgreen;
+            	alignment: center;
             }
             table.center {
-            margin-left: auto;
-            margin-right: auto;
+            	margin-left: auto;
+            	margin-right: auto;
             }
-            tr, td{
-               margin-left: auto;
+            tr, td {
+               	margin-left: auto;
                 margin-right: auto;
                 text-align: center;
                 vertical-align: middle;
@@ -32,24 +32,33 @@
 				<p>Enter Username and Password:</p>
 			<form action="" method="post">
                 <table class = "center">
+					<!-- This is the field to enter the username -->
                     <tr>
-				<!-- This is the field to enter the username -->
-				<td><input type="text" placeholder="Username" name="username" value="{{
+						<td><input type="text" placeholder="Username" name="username" value="{{
                         request.form.username }}"></td>
                     </tr>
 
-				<!-- This is the field to enter the password -->
-				<tr><td class = "center"><input type="password" placeholder="Password" name="password" value="{{
-                        request.form.password }}"></td></tr>
+					<!-- This is the field to enter the password -->
+					<tr>
+						<td class = "center"><input type="password" placeholder="Password" name="password" value="{{
+                        request.form.password }}"></td>
+					</tr>
 
-				<!-- Submit button -->
-                    <tr><td><input class="btn btn-default" type="submit" value="login"></td></tr>
+					<!-- Submit button -->
+                    <tr>
+						<td><input class="btn btn-default" type="submit" value="Login"></td>
+					</tr>
+
+					<!-- Output error (error defined in app.py -->
+					<tr>
+						<td>
+							{% if error %}
+							<p class="error"><strong>Error:</strong> {{ error }}
+							{% endif %}
+						</td>
+					</tr>
                 </table>
 			</form>
-			<!-- Output error (error defined in app.py -->
-			{% if error %}
-				<p class="error"><strong>Error:</strong> {{ error }}
-			{% endif %}
 		</div>
 	</body>
 </html>
