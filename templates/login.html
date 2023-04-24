@@ -4,21 +4,21 @@
         <link rel="icon" type="image/png" href="../static/favicon.png">
 		<link rel="stylesheet" href="../static/style.css" type="text/css">
 	</head>
-	<body>
-		<div class="auth-div">
+	<body class="dark-body">
+		<div class="auth-div dark-div">
 			<h1>Login</h1>
 				<p>Enter Username and Password:</p>
 			<form action="" method="post">
 				<!-- This is the field to enter the username -->
-				<p><input class="auth-text" type="text" placeholder="Username" name="username" value="{{
+				<p><input class="auth-text dark-text" type="text" placeholder="Username" name="username" value="{{
                 	request.form.username }}"></p>
 
 				<!-- This is the field to enter the password -->
-				<p><input class ="auth-text" type="password" placeholder="Password" name="password" value="{{
+				<p><input class ="auth-text dark-text" type="password" placeholder="Password" name="password" value="{{
                     request.form.password }}"></p>
 
 				<!-- Submit button -->
-				<p><input class="btn auth-btn" type="submit" value="Login"></p>
+				<p><input class="btn auth-btn dark-btn" type="submit" value="Login"></p>
 
 				<!-- Output error (error defined in app.py -->
 				{% if error %}

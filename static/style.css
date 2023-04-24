@@ -1,8 +1,41 @@
 /* Login, Sign-Up, Change Password Pages */
-body {
+.dark-body {
     background-color: #0d1217;
     color: white;
     font-family: Sans-Serif;
+}
+.dark-div {
+    background-color: #151e29;
+    border: solid 1px #8d9199;
+}
+.dark-text {
+    background-color: black;
+    color: #a2a7ab;
+}
+.dark-text::placeholder {
+    color: #a2a7ab;
+}
+.dark-btn {
+    background-color: black;
+    color: #a2a7ab;
+    border-color: #8d9199; /* For quiz buttons */
+}
+.dark-btn:focus {
+    border: solid #58afe8;
+    border-radius: 7px;
+}
+.dark-btn:hover {
+    background-color: #363638;
+    color: #bababf;
+}
+.dark-bg-btn {
+    border-color: #8d9199;
+    background-color: #151e29;
+    color: white;
+}
+.dark-bg-btn:hover {
+    background-color: #414454;
+    border: solid 1px #60626b;
 }
 .auth-div {
     text-align: center;
@@ -11,14 +44,20 @@ body {
     width: 300px;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #151e29;
-    border: solid 1px #8d9199;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+.cpass-div {
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    width: 330px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     border-radius: 20px;
     box-sizing: border-box;
 }
 .auth-text {
-    background-color: black;
-    color: #a2a7ab;
     border-top-style: hidden;
     border-bottom-style: hidden;
     border-left-style: hidden;
@@ -27,7 +66,6 @@ body {
     font-weight: bold;
 }
 .auth-text::placeholder {
-    color: #a2a7ab;
     font-style: italic;
     opacity: 0.65;
 }
@@ -36,12 +74,7 @@ body {
     border-radius: 4px;
 }
 .auth-btn {
-    background-color: black;
-    color: #a2a7ab;
-    border-top-style: hidden;
-    border-bottom-style: hidden;
-    border-left-style: hidden;
-    border-right-style: hidden;
+    border: hidden;
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 8px;
@@ -49,14 +82,7 @@ body {
     border-radius: 7px;
     font-size: 15px;
     font-weight: bold;
-}
-.auth-btn:focus {
-    border: solid #58afe8;
-    border-radius: 7px;
-}
-.auth-btn:hover {
-    background-color: #363638;
-    color: #bababf;
+    cursor: pointer;
 }
 
 /* Index page */
@@ -67,33 +93,24 @@ body {
     width: 420px;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #151e29;
-    border: solid 1px #8d9199;
     border-radius: 20px;
     box-sizing: border-box;
 }
 
 /* Home Page Play Stuff */
-.play-div {
+.home-div {
     text-align: center;
     margin: auto;
     margin-top: 150px;
     width: 300px;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #151e29;
-    border: solid 1px #8d9199;
     border-radius: 20px;
     box-sizing: border-box;
     font-size: 22px;
 }
-.play-btn {
-    background-color: black;
-    color: #a2a7ab;
-    border-top-style: hidden;
-    border-bottom-style: hidden;
-    border-left-style: hidden;
-    border-right-style: hidden;
+.home-btn {
+    border: hidden;
     padding-top: 7px;
     padding-bottom: 7px;
     padding-left: 9px;
@@ -101,12 +118,13 @@ body {
     border-radius: 9px;
     font-size: 20px;
     font-weight: bold;
+    cursor: pointer;
 }
-.play-btn:hover {
+.home-btn:hover {
     background-color: #363638;
     color: #bababf;
 }
-.play-btn:focus {
+.home-btn:focus {
     border: solid #58afe8;
     border-radius: 9px;
 }
@@ -117,23 +135,78 @@ body {
 }
 
 /* Button that goes up against the body background */
-.bg-change-pass-btn {
-    background-color: #151e29;
-    color: white;
-    border-top-style: hidden;
-    border-bottom-style: hidden;
-    border-left-style: hidden;
-    border-right-style: hidden;
+.bg-btn {
+    border: hidden;
     padding-top: 4px;
     padding-bottom: 4px;
     padding-left: 8px;
     padding-right: 8px;
     border-radius: 7px;
+    border: solid 1px;
     font-size: 15px;
     font-weight: bold;
-    border: solid 1px #8d9199;
+    cursor: pointer;
 }
-.bg-change-pass-btn:hover {
-    background-color: #414454;
-    border: solid 1px #60626b;
+
+/* Play Page */
+.play-div {
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    width: 670px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.play-text {
+    padding: 5px;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 16px;
+}
+.play-text::placeholder {
+    font-style: italic;
+    opacity: 0.65;
+}
+.play-text:focus {
+    border: solid #58afe8;
+    border-radius: 4px;
+}
+
+/* Quiz Page */
+.quiz-div {
+    text-align: center;
+    margin: auto;
+    width: 1700px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+.quiz-btn {
+    position: relative;
+    border: hidden;
+    border-radius: 12px;
+    margin-bottom: 3px;
+    padding: 20px;
+    width: 800px;
+    height: 75px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    border: solid 1px;
+}
+.quiz-score-div {
+    text-align: left;
+    margin-top: 70px;
+    margin-bottom: 8px;
+    line-height: 3px;
 }
