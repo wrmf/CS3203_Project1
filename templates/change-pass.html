@@ -25,9 +25,33 @@
                 text-align: center;
                 vertical-align: middle;
             }
+            .dark-mode {
+                background-color: #171515;
+                color: white;
+            }
+            .light-mode {
+                background-color: white;
+                color: black;
+            }
         </style>
     </head>
     <body>
+        <button onclick="darkMode()">Darkmode</button>
+        <button onclick="lightMode()">Lightmode</button>
+        <script>
+            function darkMode() {
+                var element = document.body;
+                var content = document.getElementById("DarkModetext");
+                element.className = "dark-mode";
+                content.innerText = "Dark Mode is ON";
+            }
+            function lightMode() {
+                var element = document.body;
+                var content = document.getElementById("DarkModetext");
+                element.className = "light-mode";
+                content.innerText = "Dark Mode is OFF";
+            }
+        </script>
         <div class="container">
             <h1>Change Password</h1>
                 <p>Enter Current Password and New Password:</p>
