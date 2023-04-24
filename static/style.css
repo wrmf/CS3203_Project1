@@ -18,14 +18,19 @@ body {
 }
 .auth-text {
     background-color: black;
-    color: #a2a7ab;
+    color: #b3b7ba;
     border-top-style: hidden;
     border-bottom-style: hidden;
     border-left-style: hidden;
     border-right-style: hidden;
     border-radius: 4px;
+    font-weight: bold;
 }
-.auth-text: focus {
+.auth-text::placeholder {
+    color: white;
+    font-style: italic;
+}
+.auth-text:focus {
     border: solid #58afe8;
     border-radius: 4px;
 }
@@ -42,6 +47,15 @@ body {
     padding-right: 8px;
     border-radius: 7px;
     font-size: 15px;
+    font-weight: bold;
+}
+.auth-btn:focus {
+    border: solid #58afe8;
+    border-radius: 7px;
+}
+.auth-btn:hover {
+    background-color: #363638;
+    color: #bababf;
 }
 
 /* Index page */
@@ -74,7 +88,7 @@ body {
 }
 .play-btn {
     background-color: black;
-    color: #8d9199;
+    color: #a2a7ab;
     border-top-style: hidden;
     border-bottom-style: hidden;
     border-left-style: hidden;
@@ -83,7 +97,42 @@ body {
     padding-bottom: 7px;
     padding-left: 9px;
     padding-right: 9px;
-    border-radius: 7px;
+    border-radius: 9px;
     font-size: 20px;
     font-weight: bold;
+}
+.play-btn:hover {
+    background-color: #363638;
+    color: #bababf;
+}
+.play-btn:focus {
+    border: solid #58afe8;
+    border-radius: 9px;
+}
+.logged-user {
+    line-height: 1.5;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+/* Button that goes up against the body background */
+.bg-change-pass-btn {
+    background-color: #151e29;
+    color: white;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 7px;
+    font-size: 15px;
+    font-weight: bold;
+    border: solid 1px #8d9199;
+}
+.bg-change-pass-btn:hover {
+    background-color: #414454;
+    border: solid 1px #60626b;
 }

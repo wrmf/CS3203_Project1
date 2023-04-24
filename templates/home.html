@@ -5,32 +5,15 @@
 		<link rel="stylesheet" href="../static/style.css" type="text/css">
 	</head>
 	<!-- This is the CSS style for the logged in info in the top right of the home page -->
-	<style>
-		.loggedUser {
-			line-height: 1.5;
-			font-size: 18px;
-			font-weight: bold;
-		}
-        table.center {
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 100px;
-        }
-        .center {
-        	margin-left: auto;
-        	margin-right: auto;
-        }
-	</style>
 	<body>
 		<!-- Display the logged in user in the top right -->
-		<div class="loggedUsers">
-			<span style="float: right">Logged in as:</span><br/>
-			<span style="float: right">{{ currentuser }}</span>
+		<div class="logged-user">
+			<span style="float: right; logged-user">{{ currentuser }}</span>
 			<br>
 			<!-- Section for buttons under logged in user -->
 			<form type="submit" action="/change_password">
 				<!-- Button to change password -->
-				<input style="float:right" type="submit" value="Change Password" name="change-pass"/>
+				<input class="btn bg-change-pass-btn" style="float:right" type="submit" value="Change Password" name="change-pass"/>
 			</form>
 		</div>
 		<!-- Section for center of screen with play button -->
