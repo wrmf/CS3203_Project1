@@ -3,91 +3,33 @@
     <head>
         <meta charset="UTF-8">
         <title>Change password</title>
-        <style>
-            div{
-                text-align: center;
-            }
-            input[type=text]:focus {
-                background-color: lightgreen;
-                alignment: center;
-            }
-            input[type=password]:focus {
-                background-color: lightgreen;
-                alignment: center;
-            }
-            table.center {
-                margin-left: auto;
-                margin-right: auto;
-            }
-            tr, td {
-                margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-                vertical-align: middle;
-            }
-            .dark-mode {
-                background-color: #171515;
-                color: white;
-            }
-            .light-mode {
-                background-color: white;
-                color: black;
-            }
-        </style>
+        <link rel="icon" type="image/png" href="../static/favicon.png">
+		<link rel="stylesheet" href="../static/style.css" type="text/css">
     </head>
     <body>
-        <button onclick="darkMode()">Darkmode</button>
-        <button onclick="lightMode()">Lightmode</button>
-        <script>
-            function darkMode() {
-                var element = document.body;
-                var content = document.getElementById("DarkModetext");
-                element.className = "dark-mode";
-                content.innerText = "Dark Mode is ON";
-            }
-            function lightMode() {
-                var element = document.body;
-                var content = document.getElementById("DarkModetext");
-                element.className = "light-mode";
-                content.innerText = "Dark Mode is OFF";
-            }
-        </script>
-        <div class="container">
+        <div class="auth-div">
             <h1>Change Password</h1>
-                <p>Enter Current Password and New Password:</p>
+                <p>Enter New Password:</p>
             <form method="post" action="">
-                <table class="center">
-                    <!-- Enter current password -->
-                    <tr>
-                        <td><input type="password" placeholder="Current Password" name="currpass" value="{{
-                        request.form.currpass }}"></td>
-                    </tr>
+                <!-- Enter current password -->
+                <p><input class="auth-pass" type="password" placeholder="Current Password" name="currpass" value="{{
+                    request.form.currpass }}"></p>
 
-                    <!-- Enter new password -->
-                    <tr>
-                        <td><input type="password" placeholder="New Password" name="newpass" value="{{
-                        request.form.newpass }}"></td>
-                    </tr>
+                <!-- Enter new password -->
+                <p><input class="auth-pass" type="password" placeholder="New Password" name="newpass" value="{{
+                    request.form.newpass }}"></p>
 
-                    <!-- Confirm new password -->
-                    <tr>
-                        <td><input type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
-                        request.form.newconfirm }}"></td>
-                    </tr>
+                <!-- Confirm new password -->
+                <p><input class="auth-pass" type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
+                    request.form.newconfirm }}"></p>
 
-                    <tr>
-                        <td><input type="submit" value="Confirm"></td>
-                    </tr>
+                <!-- Confirm Change Password Button -->
+                <p><input class="btn auth-btn" type="submit" value="Confirm"></p>
 
-                    <!-- Output error -->
-                    <tr>
-                        <td>
-                            {% if error %}
-                            <p style="color:darkred" class="error"><strong>Error:</strong> {{ error}}
-                            {% endif %}
-                        </td>
-                    </tr>
-                </table>
+                <!-- Output error -->
+                {% if error %}
+                <p class="error"><strong>Error:</strong> {{ error}}
+                    {% endif %}
             </form>
         </div>
     </body>
