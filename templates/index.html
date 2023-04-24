@@ -2,32 +2,28 @@
 <html>
 	<head>
 		<title>Software Engineering</title>
-        <link rel="icon" type="image/png" href="img/favicon.png">
-        <style>
-            div {
-                text-align: center;
-            }
-        </style>
+        <link rel="icon" type="image/png" href="../static/favicon.png">
+		<link rel="stylesheet" href="../static/style.css" type="text/css">
  	</head>
 	<body>
-		<div class="container">
+		<div class="index-div">
 		<h1>Software Engineering Project</h1>
 			<form method="post" action="/">
 				<p>Please select a login option:</p>
 				<!-- Login Button -->
-				<input type="submit" value="Login" name="log"/>
+				<input class="btn auth-btn" style="margin-bottom: 2px" type="submit" value="Login" name="log"/>
 				<br>
 				<!-- Sign Up button -->
-				<input type="submit" value="Sign Up" name="sign"/>
+				<input class="btn auth-btn" type="submit" value="Sign Up" name="sign"/>
 			</form>
 			<form method="post" action="/">
 				<p>Already logged in?
 				<!-- Home button -->
-				<input type="submit" value="Home" name="skip"/>
+				<input class="btn auth-btn" type="submit" value="Home" name="skip"/>
 			</form>
 			<!-- Throw error if not already session token present, and try to hit home button -->
 			{% if error %}
-				<p style="color:darkred" class="error">Error: {{ error }}
+				<p class="error">Error: {{ error }}
 			{% endif %}
 		</div>
 	</body>

@@ -1,6 +1,6 @@
-/* Authentication Pages (Login, Sign-Up, Change Pass) */
+/* Login, Sign-Up, Change Password Pages */
 body {
-    background-color: black;
+    background-color: #0d1217;
     color: white;
     font-family: Sans-Serif;
 }
@@ -11,31 +11,27 @@ body {
     width: 300px;
     padding-top: 15px;
     padding-bottom: 15px;
-    background-color: #19253d;
+    background-color: #151e29;
+    border: solid 1px #8d9199;
     border-radius: 20px;
     box-sizing: border-box;
 }
 .auth-text {
     background-color: black;
-    color: #8d9199;
+    color: #a2a7ab;
     border-top-style: hidden;
     border-bottom-style: hidden;
     border-left-style: hidden;
     border-right-style: hidden;
     border-radius: 4px;
 }
-.auth-pass {
-    background-color: black;
-    color: #8d9199;
-    border-top-style: hidden;
-    border-bottom-style: hidden;
-    border-left-style: hidden;
-    border-right-style: hidden;
+.auth-text: focus {
+    border: solid #58afe8;
     border-radius: 4px;
 }
 .auth-btn {
     background-color: black;
-    color: #8d9199;
+    color: #a2a7ab;
     border-top-style: hidden;
     border-bottom-style: hidden;
     border-left-style: hidden;
@@ -47,13 +43,47 @@ body {
     border-radius: 7px;
     font-size: 15px;
 }
-input[type=text]:focus {
-    background-color: lightgreen;
-    color: black;
-    alignment: center;
+
+/* Index page */
+.index-div {
+    text-align: center;
+    margin: auto;
+    margin-top: 100px;
+    width: 420px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #151e29;
+    border: solid 1px #8d9199;
+    border-radius: 20px;
+    box-sizing: border-box;
 }
-input[type=password]:focus {
-    background-color: lightgreen;
-    color: black
-    alignment: center;
+
+/* Home Page Play Stuff */
+.play-div {
+    text-align: center;
+    margin: auto;
+    margin-top: 150px;
+    width: 300px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #151e29;
+    border: solid 1px #8d9199;
+    border-radius: 20px;
+    box-sizing: border-box;
+    font-size: 22px;
+}
+.play-btn {
+    background-color: black;
+    color: #8d9199;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    padding-left: 9px;
+    padding-right: 9px;
+    border-radius: 7px;
+    font-size: 20px;
+    font-weight: bold;
 }

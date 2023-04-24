@@ -1,7 +1,8 @@
 <html>
 	<head>
 		<title>Home Page</title>
-        <link rel="icon" type="image/png" href="img/favicon.png">
+        <link rel="icon" type="image/png" href="../static/favicon.png">
+		<link rel="stylesheet" href="../static/style.css" type="text/css">
 	</head>
 	<!-- This is the CSS style for the logged in info in the top right of the home page -->
 	<style>
@@ -22,36 +23,27 @@
 	</style>
 	<body>
 		<!-- Display the logged in user in the top right -->
-		<div class="loggedUser">
+		<div class="loggedUsers">
 			<span style="float: right">Logged in as:</span><br/>
 			<span style="float: right">{{ currentuser }}</span>
 			<br>
 			<!-- Section for buttons under logged in user -->
 			<form type="submit" action="/change_password">
-				<table align="right">
-					<!-- Button to change password -->
-					<tr>
-						<td><input type="submit" value="Change Password" name="change-pass"/></td>
-					</tr>
-				</table>
+				<!-- Button to change password -->
+				<input style="float:right" type="submit" value="Change Password" name="change-pass"/>
 			</form>
 		</div>
-		<div class="container">
-			<!-- Section for center of screen with play button -->
-			<table class="center">
-				<!-- Button to navigate to 'play' page -->
-				<form method="post" action="/play">
-					<tr>
-                		<td><input type="submit" value="Play" name="play"/></td>
-            		</tr>
-				</form>
-				<!-- Button to navigate to 'index' page -->
-				<form type="submit" action="/">
-					<tr>
-						<td><input type="submit" style="margin-left:2px" value="Exit" name="ind"/></td>
-					</tr>
-				</form>
-			</table>
+		<!-- Section for center of screen with play button -->
+		<div class="play-div">
+			<h1>Play Quiz</h1>
+			<!-- Button to navigate to 'play' page -->
+			<form method="post" action="/play">
+				<input class="btn play-btn" type="submit" value="Play" name="play"/>
+			</form>
+			<!-- Button to navigate to 'index' page -->
+			<form type="submit" action="/">
+				<input class="btn auth-btn" type="submit" style="margin-left:2px" value="Exit" name="ind"/>
+			</form>
 		</div>
 	</body>
 </html>
