@@ -1,0 +1,58 @@
+/* Authentication Pages (Login, Sign-Up, Change Pass) */
+body {
+    background-color: black;
+    color: white;
+    font-family: Sans-Serif;
+}
+.auth-div {
+    text-align: center;
+    margin-top: 150px;
+    margin-left: 215px;
+    margin-right: 215px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    background-color: #19253d;
+    border-radius: 20px;
+    box-sizing: border-box;
+}
+.auth-text {
+    background-color: black;
+    color: #8d9199;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-radius: 4px;
+}
+.auth-pass {
+    background-color: black;
+    color: #8d9199;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    border-radius: 4px;
+}
+.auth-btn {
+    background-color: black;
+    color: #8d9199;
+    border-top-style: hidden;
+    border-bottom-style: hidden;
+    border-left-style: hidden;
+    border-right-style: hidden;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 8px;
+    border-radius: 7px;
+}
+input[type=text]:focus {
+    background-color: lightgreen;
+    color: black;
+    alignment: center;
+}
+input[type=password]:focus {
+    background-color: lightgreen;
+    color: black
+    alignment: center;
+}

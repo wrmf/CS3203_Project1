@@ -2,62 +2,28 @@
 	<head>
 		<title>Login Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
-        <style>
-            div {
-                text-align: center;
-            }
-            input[type=text]:focus {
-              	background-color: lightgreen;
-            	alignment: center;
-            }
-            input[type=password]:focus {
-              	background-color: lightgreen;
-            	alignment: center;
-            }
-            table.center {
-            	margin-left: auto;
-            	margin-right: auto;
-            }
-            tr, td {
-               	margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
+		<link rel="stylesheet" href="style.css" type="text/css">
 	</head>
 	<body>
-		<div class="container">
+		<div class="auth-div">
 			<h1>Login</h1>
 				<p>Enter Username and Password:</p>
 			<form action="" method="post">
-                <table class = "center">
-					<!-- This is the field to enter the username -->
-                    <tr>
-						<td><input type="text" placeholder="Username" name="username" value="{{
-                        request.form.username }}"></td>
-                    </tr>
+				<!-- This is the field to enter the username -->
+				<p><input class="auth-text" type="text" placeholder="Username" name="username" value="{{
+                	request.form.username }}"></p>
 
-					<!-- This is the field to enter the password -->
-					<tr>
-						<td class = "center"><input type="password" placeholder="Password" name="password" value="{{
-                        request.form.password }}"></td>
-					</tr>
+				<!-- This is the field to enter the password -->
+				<p><input class ="auth-pass" type="password" placeholder="Password" name="password" value="{{
+                    request.form.password }}"></p>
 
-					<!-- Submit button -->
-                    <tr>
-						<td><input class="btn btn-default" type="submit" value="Login"></td>
-					</tr>
+				<!-- Submit button -->
+				<p><input class="btn auth-btn" type="submit" value="Login"></p>
 
-					<!-- Output error (error defined in app.py -->
-					<tr>
-						<td>
-							{% if error %}
-							<p class="error"><strong>Error:</strong> {{ error }}
-							{% endif %}
-						</td>
-					</tr>
-                </table>
+				<!-- Output error (error defined in app.py -->
+				{% if error %}
+				<p class="error"><strong>Error:</strong> {{ error }}
+				{% endif %}
 			</form>
 		</div>
 	</body>

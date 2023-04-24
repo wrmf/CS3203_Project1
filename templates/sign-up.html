@@ -3,69 +3,33 @@
 	<head>
 		<title>Sign Up Placeholder Page</title>
         <link rel="icon" type="image/png" href="img/favicon.png">
-		<style>
-            div{
-                text-align: center;
-            }
-            input[type=text]:focus {
-              	background-color: lightgreen;
-            	alignment: center;
-            }
-            input[type=password]:focus {
-              	background-color: lightgreen;
-            	alignment: center;
-            }
-            table.center {
-            	margin-left: auto;
-            	margin-right: auto;
-            }
-            tr, td {
-               	margin-left: auto;
-                margin-right: auto;
-                text-align: center;
-                vertical-align: middle;
-            }
-        </style>
+		<link rel="stylesheet" href="style.css" type="text/css">
 	</head>
 	<body>
-		<div class="container">
+		<div class="auth-div">
 			<h1>Sign Up</h1>
 				<p>Enter Username and Password:</p>
 			<form method="post" action="">
-				<table class="center">
 
-					<!-- Field to enter username -->
-					<tr>
-						<td><input type="text" placeholder="Username" name="username" value="{{
-			 			request.form.username }}"></td>
-					</tr>
+				<!-- Field to enter username -->
+				<p><input class="auth-text" type="text" placeholder="Username" name="username" value="{{
+			 		request.form.username }}"></p>
 
-					<!-- Field to enter password -->
-					<tr>
-						<td><input type="password" placeholder="Password" name="password" value="{{
-			 			request.form.username }}"></td>
-					</tr>
+				<!-- Field to enter password -->
+				<p><input class="auth-pass" type="password" placeholder="Password" name="password" value="{{
+			 		request.form.username }}"></p>
 
-					<!-- Field to enter password confirmation -->
-					<tr>
-						<td><input type="password" placeholder="Confirm Password" name="confirm" value="{{
-			 			request.form.confirm }}"></td>
-					</tr>
+				<!-- Field to enter password confirmation -->
+				<p><input class="auth-pass" type="password" placeholder="Confirm Password" name="confirm" value="{{
+			 		request.form.confirm }}"></p>
 
-					<!-- Submit button -->
-					<tr>
-						<td><input class="btn btn-default" type="submit" value="Sign Up"></td>
-					</tr>
+				<!-- Submit button -->
+				<p><input class="btn auth-btn" type="submit" value="Sign Up"></p>
 
-					<!-- Output error (error defined in app.py) -->
-					<tr>
-						<td>
-							{% if error %}
-								<p style="color:darkred" class="error"><strong>Error:</strong> {{ error}}
-							{% endif %}
-						</td>
-					</tr>
-				</table>
+				<!-- Output error (error defined in app.py) -->
+				{% if error %}
+					<p class="error"><strong>Error:</strong> {{ error}} </p>
+				{% endif %}
 			</form>
 		</div>
 	</body>
