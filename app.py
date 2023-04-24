@@ -97,11 +97,12 @@ def sign_up():
 @app.route("/change_password/", methods=[ 'GET', 'POST' ])
 def change_password():
 	curruser = session.get('curruser', None)
-	idx = users.index(curruser)  	# Index of the curruser in the lists
-	error = None
 
 	if not curruser:
 		return redirect(url_for('index'))
+
+	idx = users.index(curruser)  	# Index of the curruser in the lists
+	error = None
 
 	if request.method == 'POST':
 		currpass = request.form['currpass']
