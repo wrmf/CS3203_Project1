@@ -8,8 +8,8 @@
 	<!-- This is the CSS style for the logged in info in the top right of the home page -->
 	<body class="{{ theme }}-body">
 		<!-- Toggle button for dark/light theme -->
-		<div>
-			<form method="post" action="/home/">
+		<div style="width: 100px;">
+			<form style="float:left;" method="post" action="/home/">
 				<script>
 					function tgl()
 					{
@@ -23,10 +23,10 @@
 		</div>
 		<!-- Display the logged in user in the top right -->
 		<div class="logged-user">
-			<span style="float: right; logged-user">{{ currentuser }}</span>
+			<span style="float: right">{{ currentuser }}</span>
 			<br>
 			<!-- Section for buttons under logged in user -->
-			<form type="submit" action="/change_password">
+			<form style="float:right;" type="submit" action="/change_password">
 				<!-- Button to change password -->
 				<input class="btn bg-btn {{ theme }}-bg-btn" style="float:right" type="submit" value="Change Password" name="change-pass"/>
 			</form>
