@@ -4,27 +4,28 @@
         <meta charset="UTF-8">
         <title>Change password</title>
         <link rel="icon" type="image/png" href="../static/favicon.png">
-		<link rel="stylesheet" href="../static/style.css" type="text/css">
+		<link rel="stylesheet" href="../static/main.css" type="text/css"/>
+		<link rel="stylesheet" href="../static/{{ theme }}-theme.css" type="text/css"/>
     </head>
-    <body class="dark-body">
-        <div class="cpass-div dark-div">
+    <body class="{{ theme }}-body">
+        <div class="cpass-div {{ theme }}-div">
             <h1>Change Password</h1>
                 <p>Enter New Password:</p>
             <form method="post" action="">
                 <!-- Enter current password -->
-                <p><input class="auth-text dark-text" type="password" placeholder="Current Password" name="currpass" value="{{
+                <p><input class="auth-text {{ theme }}-text" type="password" placeholder="Current Password" name="currpass" value="{{
                     request.form.currpass }}"></p>
 
                 <!-- Enter new password -->
-                <p><input class="auth-text dark-text" type="password" placeholder="New Password" name="newpass" value="{{
+                <p><input class="auth-text {{ theme }}-text" type="password" placeholder="New Password" name="newpass" value="{{
                     request.form.newpass }}"></p>
 
                 <!-- Confirm new password -->
-                <p><input class="auth-text dark-text" type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
+                <p><input class="auth-text {{ theme }}-text" type="password" placeholder="Confirm New Password" name="newconfirm" value="{{
                     request.form.newconfirm }}"></p>
 
                 <!-- Confirm Change Password Button -->
-                <p><input class="btn auth-btn dark-btn" type="submit" value="Confirm"></p>
+                <p><input class="btn auth-btn {{ theme }}-btn" type="submit" value="Confirm"></p>
 
                 <!-- Output error -->
                 {% if error %}

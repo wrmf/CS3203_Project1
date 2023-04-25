@@ -2,24 +2,39 @@
 <html>
 	<head>
 		<title>Software Engineering</title>
-        <link rel="icon" type="image/png" href="../static/favicon.png">
-		<link rel="stylesheet" href="../static/style.css" type="text/css">
+        <link rel="icon" type="image/png" href="../static/favicon.png"/>
+		<link rel="stylesheet" href="../static/main.css" type="text/css"/>
+		<link rel="stylesheet" href="../static/{{ theme }}-theme.css" type="text/css"/>
  	</head>
-	<body class="dark-body">
-		<div class="index-div dark-div">
+	<body class="{{ theme }}-body">
+		<!-- Toggle button for dark/light theme -->
+		<div>
+			<form method="post" action="/">
+				<script>
+					function tgl()
+					{
+						var t = document.getElementById("toggle");
+						if (t.value == "Dark") {t.value = "Light";}
+						else if (t.value == "Light") {t.value = "Dark";}
+					}
+				</script>
+				<button class="bg-btn {{ theme }}-bg-btn" onclick="tgl();" id="toggle" name="toggle-button" value="{{ theme }}">{{ theme }}</button>
+			</form>
+		</div>
+		<div class="index-div {{ theme }}-div">
 		<h1>Software Engineering Project</h1>
 			<form method="post" action="/">
 				<p>Please select a login option:</p>
 				<!-- Login Button -->
-				<input class="btn auth-btn dark-btn" style="margin-bottom: 2px" type="submit" value="Login" name="log"/>
+				<input class="btn auth-btn {{ theme }}-btn" style="margin-bottom: 2px" type="submit" value="Login" name="log"/>
 				<br>
 				<!-- Sign Up button -->
-				<input class="btn auth-btn dark-btn" type="submit" value="Sign Up" name="sign"/>
+				<input class="btn auth-btn {{ theme }}-btn" type="submit" value="Sign Up" name="sign"/>
 			</form>
 			<form method="post" action="/">
 				<p>Already logged in?
 				<!-- Home button -->
-				<input class="btn auth-btn dark-btn" type="submit" value="Home" name="skip"/>
+				<input class="btn auth-btn {{ theme }}-btn" type="submit" value="Home" name="skip"/>
 			</form>
 			<!-- Throw error if not already session token present, and try to hit home button -->
 			{% if error %}

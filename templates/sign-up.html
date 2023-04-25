@@ -3,28 +3,29 @@
 	<head>
 		<title>Sign Up Placeholder Page</title>
         <link rel="icon" type="image/png" href="../static/favicon.png">
-		<link rel="stylesheet" href="../static/style.css" type="text/css">
+		<link rel="stylesheet" href="../static/main.css" type="text/css"/>
+		<link rel="stylesheet" href="../static/{{ theme }}-theme.css" type="text/css"/>
 	</head>
-	<body class="dark-body">
-		<div class="auth-div dark-div">
+	<body class="{{ theme }}-body">
+		<div class="auth-div {{ theme }}-div">
 			<h1>Sign Up</h1>
 				<p>Enter Username and Password:</p>
 			<form method="post" action="">
 
 				<!-- Field to enter username -->
-				<p><input class="auth-text dark-text" type="text" placeholder="Username" name="username" value="{{
+				<p><input class="auth-text {{ theme }}-text" type="text" placeholder="Username" name="username" value="{{
 			 		request.form.username }}"></p>
 
 				<!-- Field to enter password -->
-				<p><input class="auth-text dark-text" type="password" placeholder="Password" name="password" value="{{
+				<p><input class="auth-text {{ theme }}-text" type="password" placeholder="Password" name="password" value="{{
 			 		request.form.username }}"></p>
 
 				<!-- Field to enter password confirmation -->
-				<p><input class="auth-text dark-text" type="password" placeholder="Confirm Password" name="confirm" value="{{
+				<p><input class="auth-text {{ theme }}-text" type="password" placeholder="Confirm Password" name="confirm" value="{{
 			 		request.form.confirm }}"></p>
 
 				<!-- Submit button -->
-				<p><input class="btn auth-btn dark-btn" type="submit" value="Sign Up"></p>
+				<p><input class="btn auth-btn {{ theme }}-btn" type="submit" value="Sign Up"></p>
 
 				<!-- Output error (error defined in app.py) -->
 				{% if error %}

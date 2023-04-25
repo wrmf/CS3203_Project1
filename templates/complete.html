@@ -2,13 +2,14 @@
 	<head>
 		<title>Game complete</title>
         <link rel="icon" type="image/png" href="../static/favicon.png">
-		<link rel="stylesheet" href="../static/style.css" type="text/css">
+		<link rel="stylesheet" href="../static/main.css" type="text/css"/>
+		<link rel="stylesheet" href="../static/{{ theme }}-theme.css" type="text/css"/>
 	</head>
-	<body class="dark-body">
-    	<div class="complete-div dark-div">
+	<body class="{{ theme }}-body">
+    	<div class="complete-div {{ theme }}-div">
          	<h2>{{ message }}</h2>
             <form method="post" action="/play">
-				<input class="btn complete-btn dark-btn" type="submit" value="Play again!" name="replay"/>
+				<input class="btn complete-btn {{ theme }}-btn" type="submit" value="Play again!" name="replay"/>
 				<br>
 			</form>
     	</div>

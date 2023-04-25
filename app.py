@@ -23,8 +23,13 @@ def index():
 	curruser = session.get('curruser', None)
 
 	if request.method == 'POST':
+		# Get the theme
+		if request.form.get('toggle-button') == 'Dark':
+			session['theme'] = 'Dark'
+		elif request.form.get('toggle-button') == 'Light':
+			session['theme'] = 'Light'
 		# Go to login page
-		if request.form.get('log') == 'Login':
+		elif request.form.get('log') == 'Login':
 			return redirect(url_for('login'))
 		# go to sign up page
 		elif request.form.get('sign') == 'Sign Up':
@@ -34,10 +39,10 @@ def index():
 			# Throw error if not logged in
 			if not curruser:
 				error = 'Currently not logged in.'
-				return render_template('index.html', error=error)
+				return render_template('index.html', theme=session['theme'], error=error)
 			else:
 				return redirect(url_for('home'))
-	return render_template('index.html', error=None)
+	return render_template('index.html', theme=session['theme'], error=None)
 
 # login page
 @app.route("/login/", methods=[ 'GET', 'POST' ])
@@ -64,7 +69,7 @@ def login():
 			session['curruser'] = username
 			return redirect(url_for('home'))	# Go to home, pass -1 index (admin)
 
-	return render_template('login.html', error=error)
+	return render_template('login.html', theme=session['theme'], error=error)
 
 # sign up page
 @app.route("/sign_up/", methods=[ 'GET', 'POST' ])
@@ -92,7 +97,7 @@ def sign_up():
 			else:	# Throw error if passwords don't match
 				error = 'Passwords do not match'
 
-	return render_template('sign-up.html', error=error)
+	return render_template('sign-up.html', theme=session['theme'], error=error)
 
 @app.route("/change_password/", methods=[ 'GET', 'POST' ])
 def change_password():
@@ -124,7 +129,7 @@ def change_password():
 		else:
 			error = 'Incorrect current password'
 
-	return render_template('change-pass.html', error=error)
+	return render_template('change-pass.html', theme=session['theme'], error=error)
 
 # home page
 @app.route("/home/", methods=[ 'GET', 'POST' ])
@@ -136,6 +141,11 @@ def home():
 		return redirect(url_for('index'))
 
 	if request.method == 'POST':
+		# Get the theme
+		if request.form.get('toggle-button') == 'Dark':
+			session['theme'] = 'Dark'
+		elif request.form.get('toggle-button') == 'Light':
+			session['theme'] = 'Light'
 		if request.form.get('ind') == 'Logout':  # Logout button (send to index)
 			return redirect(url_for('index')) #redirect to main page
 		if request.form.get('play') == 'play':  # Check if 'play' was hit
@@ -143,7 +153,7 @@ def home():
 		if request.form.get('change-pass') == 'Change Password':  	# Redirect to change password page
 			return redirect(url_for('change_password'))
 
-	return render_template('home.html', currentuser = curruser)
+	return render_template('home.html', theme=session['theme'], currentuser = curruser)
 
 # home page
 @app.route("/play/", methods=[ 'GET', 'POST' ])
@@ -168,10 +178,10 @@ def play():
 						numQuestions = numQ
 					else:
 						errorStatement = "Please enter valid number..."  # statement to be passed to play.html
-						return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+						return render_template("play.html", theme=session['theme'], errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
 				else:
 					errorStatement = "Please enter valid number..."  # if it isnt error statment is ran to try again
-					return render_template("play.html", errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
+					return render_template("play.html", theme=session['theme'], errorStatement=errorStatement, min=MINQUESTIONS, max=MAXQUESTIONS)
 
 				session['listOfQuestions'] = []
 				session['numQuestions'] = numQuestions #Save to session
@@ -184,7 +194,7 @@ def play():
 				elif request.form.get('go') == 'GO (hard difficulty)':  # This is a login button to take users to the login page
 					return redirect(url_for('play_game', gametype='hard')) #Redirect to /easyGame
 
-	return render_template('play.html')
+	return render_template('play.html', theme=session['theme'])
 
 @app.route("/game/<gametype>", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
 def play_game(gametype):
@@ -242,7 +252,7 @@ def play_game(gametype):
 				score -= 5  # Decrement on wrong
 		session['score'] = score  # Save score
 		return redirect(url_for('gameComplete', gametype=gametype))
-	return render_template('quiz.html', question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
+	return render_template('quiz.html', theme=session['theme'], question=ret[0], answer1=ret[1], answer2=ret[2], answer3=ret[3],
 						answer4=ret[4], score=score, correct=ret[6], currQ=currentQuestion, maxQ=numQuestions, gametype=gametype, currentuser=curruser)
 
 @app.route("/complete/<gametype>", methods=[ 'GET', 'POST' ])#, methods=[ 'GET', 'POST' ])	# 'GET' and 'POST' are HTML methods that are used in the corresponding html file
@@ -283,7 +293,7 @@ def gameComplete(gametype):
 	elif score < hs:
 		message = f'Your score of {score} did not beat your high score of {hs} points :(' #Set message
 
-	return render_template('complete.html', message=message, curruser=curruser) #Render window
+	return render_template('complete.html', theme=session['theme'], message=message, curruser=curruser) #Render window
 
 if __name__ == "__main__":
 	read_from_file()
@@ -293,3 +303,4 @@ if __name__ == "__main__":
 	#app.secret_key = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
 	app.config['SECRET_KEY'] = 'NA.bcr*xB2KJc7W!7mVHeG!xUC9uQo8qAJj7fE7wr2FbHM8A7kdRRaaN7a-zK9*.vxB92o3s.wgLRV76Z6qWvj9gb@Er*2cThNpe'
 	app.run('0.0.0.0', port) # 5000 is the port for the url, change this when test so that multiple devs can run at same time on different ports
+	session['theme'] = 'Dark'
