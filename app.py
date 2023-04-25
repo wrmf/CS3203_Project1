@@ -100,17 +100,22 @@ def sign_up():
 
 		if username in users:	# Check if username is already in 'users.txt'
 			error = 'Username taken'
+		elif len(username) > 100:
+			error = 'Username cannot be longer than 100 characters'
 		else:
 			if password == confirm:	# Check that the entered password and the re-entered passwords match
-				# Add the username, password, and highscore to their respective lists
-				users.append(username)
-				passwords.append(password)
-				highscoresE.append(0)
-				highscoresM.append(0)
-				highscoresH.append(0)
-				append_to_file()	# Add the new user with their password and 0 highscore to the end of 'users.txt'
-				session['curruser'] = username
-				return redirect(url_for('home'))	# If successful, go to the home page and pass user index
+				if len(password) <= 100:
+					# Add the username, password, and highscore to their respective lists
+					users.append(username)
+					passwords.append(password)
+					highscoresE.append(0)
+					highscoresM.append(0)
+					highscoresH.append(0)
+					append_to_file()	# Add the new user with their password and 0 highscore to the end of 'users.txt'
+					session['curruser'] = username
+					return redirect(url_for('home'))	# If successful, go to the home page and pass user index
+				else:
+					error = 'Password cannot be longer than 100 characters'
 			else:	# Throw error if passwords don't match
 				error = 'Passwords do not match'
 
@@ -140,9 +145,12 @@ def change_password():
 		if currpass == passwords[idx]:  # Check that current password is correct
 			if newpass == newconfirm:  # Confirm new password
 				if newpass != currpass:
-					passwords[idx] = newpass
-					resave_file()
-					return redirect(url_for('home'))
+					if len(newpass) <= 100:
+						passwords[idx] = newpass
+						resave_file()
+						return redirect(url_for('home'))
+					else:
+						error = 'New password cannot be more than 100 characters'
 				else:
 					error = 'New password cannot be the same as your old password'
 			else:
